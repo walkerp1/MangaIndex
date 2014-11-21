@@ -70,6 +70,7 @@ class RecentController extends BaseController {
 
     protected function getRecentRecords() {
         $records = PathRecord::whereDirectory(false)
+            ->whereRaw('left(path, 5) in ("/Mang", "/Raws", "/Ones")')
             ->orderBy('modified', 'desc')
             ->take(1000)
             ->get();
