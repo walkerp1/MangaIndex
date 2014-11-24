@@ -100,6 +100,7 @@ class Series extends Eloquent {
         $muData = MangaUpdates::getManga($this->mu_id);
         if($muData) {
             $this->importMuData($muData);
+            $this->updated_at = $this->freshTimestamp();
             $this->save();
         }
     }
@@ -173,7 +174,7 @@ class Series extends Eloquent {
 
     // users are allowed to update MU data once every 24 hrs
     public function canUpdateMu() {
-        return (strtotime($this->updated_at) < strtotime('-1 day', 0));
+        return (strtotime($this->updated_at) < strtotime('-1 day'));
     }
 
     public function getImageUrl() {
