@@ -50,7 +50,13 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 
 App::error(function(Exception $exception, $code)
 {
-	Log::error($exception, array('request' => $_SERVER['REQUEST_URI']));
+    $logParams = array();
+
+    if(array_key_exists('REQUEST_URI', $_SERVER)) {
+        $logParams['request'] = $_SERVER['REQUEST_URI'];
+    }
+
+	Log::error($exception, $logParams);
 
     if(Config::get('app.debug') === false) {
         if($code === 403) {

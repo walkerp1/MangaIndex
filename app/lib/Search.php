@@ -50,6 +50,7 @@ class Search {
 
     public static function url($keyword, $type = null) {
         $keyword = strtolower($keyword);
+        $keyword = str_replace('/', '%2F', $keyword); // URL::route() will not encode forward slashes
 
         if($type) {
             return URL::route('searchKeywordType', array('type' => $type, 'keyword' => $keyword));
