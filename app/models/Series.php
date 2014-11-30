@@ -25,35 +25,9 @@ class Series extends Eloquent {
         return $this->belongsToMany('User', 'user_series');
     }
 
-    /*
-    
-    below are not used. all data should be returned using a single facet() query
-    and then processed in the application level
-
-    public function authors() {
-        return $this->belongsToMany('Facet')->whereType('author');
+    public function relatedSeries() {
+        return $this->hasMany('RelatedSeries');
     }
-
-    public function artists() {
-        return $this->belongsToMany('Facet')->whereType('artist');
-    }
-
-    public function categories() {
-        return $this->belongsToMany('Facet')->whereType('category');
-    }
-
-    public function genres() {
-        return $this->belongsToMany('Facet')->whereType('genre');
-    }
-
-    public function staff() {
-        return $this->belongsToMany('Facet')->whereIn('type', array('author', 'artist'));
-    }
-
-    public function titles() {
-        return $this->belongsToMany('Facet')->whereType('title');
-    }
-    */
 
     public function getFacetNames($type) {
         $facets = $this->facets;
@@ -101,6 +75,7 @@ class Series extends Eloquent {
         if($muData) {
             $this->importMuData($muData);
             $this->updated_at = $this->freshTimestamp();
+            $this->needs_update = false;
             $this->save();
         }
     }
@@ -148,6 +123,18 @@ class Series extends Eloquent {
         if(!in_array($muData->name, $muData->altTitles)) {
             $this->addFacetByName($muData->name, 'title');
         }
+
+        // related series
+        $this->relatedSeries()->delete(); // remove all previous related series
+        if(isset($muData->related)) {
+            foreach($muData->related as $item) {
+                $related = new RelatedSeries();
+                $related->series_id = $this->id;
+                $related->related_mu_id = $item['muId'];
+                $related->type = $item['type'];
+                $related->save();
+            }
+        }
     }
 
     public function addFacetByName($facetName, $type) {
@@ -174,7 +161,7 @@ class Series extends Eloquent {
 
     // users are allowed to update MU data once every 24 hrs
     public function canUpdateMu() {
-        return (strtotime($this->updated_at) < strtotime('-1 day'));
+        return ($this->needs_update || (strtotime($this->updated_at) < strtotime('-1 day')));
     }
 
     public function getImageUrl() {

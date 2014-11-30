@@ -31,7 +31,7 @@ class MangaUpdates {
 
         $catHeaders = $doc->find('.sCat');
         foreach($catHeaders as $i => $e) {
-            $cat = preg_replace('~[^a-z\w?()]+\[Edit]$~', '', $catHeaders->eq($i)->text());
+            $cat = $catHeaders->eq($i)->find('b')->text();
             $content = $catHeaders->eq($i)->next('.sContent');
 
             if($cat === 'Description') {
@@ -78,6 +78,29 @@ class MangaUpdates {
                 }
 
                 $ret->altTitles = $titles;
+            }
+            elseif($cat === 'Related Series') {
+                $html = $content->html();
+                $lines = explode('<br>', $html);
+
+                $ret->related = array();
+                foreach($content->contents() as $node) {
+                    if($node instanceof DOMElement) {
+                        $href = $node->getAttribute('href');
+                        if(preg_match('/^series\\.html\\?id=(\\d+)$/', $href, $matches)) {
+                            $muId = $matches[1];
+                            $type = null;
+
+                            // the relation type text is a standalone text node
+                            $next = $node->nextSibling;
+                            if($next instanceof DOMText) {
+                                $type = trim($next->wholeText, ' ()');
+                            }
+
+                            $ret->related[] = array('muId' => $muId, 'type' => $type);
+                        }
+                    }
+                }
             }
         }
 

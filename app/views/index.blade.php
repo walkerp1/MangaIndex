@@ -156,7 +156,7 @@
                             <button class="button" name="delete" value="1" id="delete-manga">Delete Manga data</button>
                         </div>
 
-                        <?php if($path->record->series->canUpdateMu()): ?>
+                        <?php if(($user && $user->hasSuper()) || $path->record->series->canUpdateMu()): ?>
                             <div class="field-row">
                                 <button class="button" name="update" value="1">Update Manga data</button>
                             </div>
