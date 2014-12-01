@@ -122,6 +122,15 @@
                             </div>
                         <?php endif; ?>
 
+                        <?php if(count($relatedSeries) > 0): ?>
+                            <h3>Related series</h3>
+                            <ul>
+                                <?php foreach($relatedSeries as $related): ?>
+                                    <li><a href="{{{ $related->path->getUrl() }}}">{{{ $related->name }}}</a> ({{{ $related->type }}})
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php endif; ?>
+
                         <h4>Scanlated?</h4>
                         <span class="scanstatus">{{{ $path->record->series->scan_status }}}</span>
 

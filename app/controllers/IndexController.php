@@ -30,11 +30,13 @@ class IndexController extends BaseController {
         $categories = null;
         $userIsWatching = null;
         $pageTitle = null;
+        $relatedSeries = null;
         if($series = $path->record->series) {
             $groupedStaff = $series->getGroupedStaff();
             $genres = $series->getFacetNames('genre');
             $categories = $series->getFacetNames('category');
             $pageTitle = $series->name;
+            $relatedSeries = $series->getRelated();
 
             $user = Auth::user();
             if($user) {
@@ -46,7 +48,7 @@ class IndexController extends BaseController {
                 $pageTitle = $path->getRelativeTop();
             }
         }
-
+        
         $params = array(
             'path' => $path,
             'groupedStaff' => $groupedStaff,
@@ -56,6 +58,7 @@ class IndexController extends BaseController {
             'children' => $children,
             'userIsWatching' => $userIsWatching,
             'pageTitle' => $pageTitle,
+            'relatedSeries' => $relatedSeries
         );
 
         $params = array_merge($params, $orderParams);

@@ -97,7 +97,7 @@ class MangaUpdates {
                                 $type = trim($next->wholeText, ' ()');
                             }
 
-                            $ret->related[] = array('muId' => $muId, 'type' => $type);
+                            $ret->related[$muId.'-'.$type] = array('muId' => $muId, 'type' => $type);
                         }
                     }
                 }

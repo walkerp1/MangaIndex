@@ -172,4 +172,24 @@ class Series extends Eloquent {
         return !!$this->image;
     }
 
+    // return an array with series that are "related" to this one based on MU data
+    public function getRelated() {
+        $result = DB::table('related_series')
+            ->join('series', 'series.mu_id', '=', 'related_series.related_mu_id')
+            ->join('path_records', 'path_records.series_id', '=', 'series.id')
+            ->select('series.name', 'path_records.path', 'related_series.type')
+            ->where('related_series.series_id', '=', $this->id)
+            ->get();
+
+        foreach($result as $index => &$row) {
+            $row->path = Path::fromRelative($row->path);
+            
+            if(!$row->path->exists()) {
+                unset($result[$index]);
+            }
+        }
+        
+        return $result;
+    }
+
 }
