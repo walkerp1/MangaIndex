@@ -75,9 +75,10 @@ class Series extends Eloquent {
         if($muData) {
             $this->importMuData($muData);
             $this->updated_at = $this->freshTimestamp();
-            $this->needs_update = false;
-            $this->save();
         }
+
+        $this->needs_update = false;
+        $this->save();
     }
 
     private function importMuData($muData) {
@@ -188,7 +189,7 @@ class Series extends Eloquent {
                 unset($result[$index]);
             }
         }
-        
+
         return $result;
     }
 
