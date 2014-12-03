@@ -46,7 +46,7 @@ class HashCommand extends Command {
     protected function processPath(Path $path) {
         if(!$path->isDir()) {
             $pathRecord = $path->loadCreateRecord();
-            $ext = $path->getExtension();
+            $ext = strtolower($path->getExtension());
 
             if(!$pathRecord->shouldHash()) {
                 return;
@@ -55,8 +55,11 @@ class HashCommand extends Command {
             // delete old hash records
             $pathRecord->imageHashes()->delete();
 
-            if(strcasecmp($ext, 'zip') === 0) {
+            if(in_array($ext, array('zip', 'cbz'))) {
                 $this->processZip($path, $pathRecord);
+            }
+            elseif(in_array($ext, array('rar', 'cbr'))) {
+                $this->processRar($path, $pathRecord);
             }
         }
         else {
@@ -68,7 +71,7 @@ class HashCommand extends Command {
     }
 
     protected function processZip(Path $path, PathRecord $pathRecord) {
-        printf("Processing zip: %s\n", $path->getPathname());
+        printf("Processing: %s\n", $path->getPathname());
 
         $zip = new ZipArchive();
         if($zip->open($path->getPathname()) !== true) {
@@ -84,6 +87,63 @@ class HashCommand extends Command {
                 try {
                     // get stream for zip entry
                     $entryStream = $zip->getStream($name);
+
+                    // create stream for temp file
+                    $tempStream = tmpfile();
+
+                    // copy entry to temp file
+                    stream_copy_to_stream($entryStream, $tempStream);
+
+                    // close entry stream
+                    fclose($entryStream);
+
+                    // get filename of temp stream
+                    $streamMeta = stream_get_meta_data($tempStream);
+                    $tempFile = $streamMeta['uri'];
+
+                    // hash file
+                    $phash = ph_dct_imagehash($tempFile);
+                    if(!$phash) {
+                        printf("hashing failed\n");
+                    }
+                    else {
+                        $hashRecord = new ImageHash();
+                        $hashRecord->path_record_id = $pathRecord->id;
+                        $hashRecord->name = $name;
+                        $hashRecord->binary_hash = sha1_file($tempFile);
+                        $hashRecord->phash = $phash;
+                        $hashRecord->save();
+
+                        printf("phash: %x\n", $phash);
+                    }
+                }
+                catch(Exception $e) {
+                    printf("ERROR\n");
+                }
+            }
+        }
+
+        $pathRecord->hashed_at = $pathRecord->freshTimestamp();
+        $pathRecord->save();
+    }
+
+    protected function processRar(Path $path, PathRecord $pathRecord) {
+        printf("Processing: %s\n", $path->getPathname());
+
+        $rar = RarArchive::open($path->getPathname());
+        if(!$rar) {
+            printf("\tERROR: Failed to open.\n");
+            return;
+        }
+
+        foreach($rar->getEntries() as $entry) {
+            $name = $entry->getName();
+            if($this->validImageFilename($name)) {
+                printf("\t%s ", $name);
+
+                try {
+                    // get stream for zip entry
+                    $entryStream = $entry->getStream();
 
                     // create stream for temp file
                     $tempStream = tmpfile();
