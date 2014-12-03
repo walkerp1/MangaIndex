@@ -62,7 +62,7 @@ class HashCommand extends Command {
                 $this->processRar($path, $pathRecord);
             }
         }
-        else {
+        elseif($path->getRelative() !== '/Admin cleanup') {
             $children = $path->getChildren();
             foreach($children as $child) {
                 $this->processPath($child);
