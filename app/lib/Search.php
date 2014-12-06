@@ -16,7 +16,9 @@ class Search {
             ->where('directory', '=', 1)
             ->limit(0, 100);
 
-        $query->match('*', $query->halfEscapeMatch($keyword));
+        $escaped = $query->halfEscapeMatch($keyword);
+        $escaped = str_replace('?', '\?', $escaped); // "?" behaves strangely and doesn't get escaped by the above
+        $query->match('*', $escaped);
 
         $result = $query->execute();
         $ids = self::getIds($result);
