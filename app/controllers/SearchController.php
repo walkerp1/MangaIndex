@@ -45,7 +45,8 @@ class SearchController extends BaseController {
     }
 
     public function image() {
-        return View::make('search-image', array('pageTitle' => 'Search image'));
+        $imagesCount = ImageHash::count();
+        return View::make('search-image', array('pageTitle' => 'Search image', 'imagesCount' => $imagesCount));
     }
 
     public function imageSubmit() {

@@ -60,6 +60,7 @@
     <script src="/js/jquery.js"></script>
     <script src="/js/jquery-ui.js"></script>
     <script src="/js/manga.js"></script>
+    <script src="/js/snowstorm.js"></script>
 
     <?php if(isset($gaId)): ?>
         <script>
