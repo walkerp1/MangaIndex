@@ -197,11 +197,11 @@ th.time, td.time {
 .button-text {
     background: none;
     border: none;
-    color: #0074D9;  
+    color: #e96a81;  
 }
 
 .button-text:hover, .button-text:focus {
-    color: #004480;
+    color: rgba(233, 106, 129, 0.8);
     text-decoration: underline;
 }
 
