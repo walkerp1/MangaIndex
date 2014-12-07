@@ -77,6 +77,10 @@ class SearchController extends BaseController {
                 return Redirect::back();
             }
         }
+        else {
+            Session::flash('error', 'No image submitted');
+            return Redirect::back();
+        }
 
         $paths = Search::byImage($inputFilePath);
         if($paths === false) {
