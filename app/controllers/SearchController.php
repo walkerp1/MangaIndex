@@ -45,7 +45,7 @@ class SearchController extends BaseController {
     }
 
     public function image() {
-        $imagesCount = ImageHash::count();
+        $imagesCount = ImageHash::formattedCount();
         return View::make('search-image', array('pageTitle' => 'Search image', 'imagesCount' => $imagesCount));
     }
 
@@ -84,10 +84,13 @@ class SearchController extends BaseController {
             return Redirect::back();
         }
 
+        $imagesCount = ImageHash::formattedCount();
+
         $viewParams = array(
             'pageTitle' => 'Search image',
             'paths' => $paths,
-            'searched' => true
+            'searched' => true,
+            'imagesCount' => $imagesCount
         );
 
         return View::make('search-image', $viewParams);

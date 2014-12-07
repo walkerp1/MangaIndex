@@ -6,4 +6,8 @@ class ImageHash extends Eloquent {
         return $this->belongsTo('PathRecord');
     }
 
+    public static function formattedCount() {
+        return number_format(self::count());
+    }
+
 }
