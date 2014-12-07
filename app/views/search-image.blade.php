@@ -15,6 +15,10 @@
             <a href="/">Back</a>
         </div>
 
+        <p>
+            {{{ $imagesCount }}} images in database.
+        </p>
+
         <form method="post" action="{{{ URL::Route('searchImageSubmit') }}}" enctype="multipart/form-data" id="search-image-form">
             {{ Form::token() }}
 
