@@ -235,7 +235,7 @@ th.time, td.time {
 }
 
 input.file {
-    border: 1px solid #D6D6D6;
+    border: 1px solid #404040;
     padding: 5px 6px;
     -webkit-transition: border 200ms;  transition: border 200ms;
 }
