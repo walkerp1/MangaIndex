@@ -53,7 +53,7 @@
 
     <footer>
         #madokami @ rizon<br/>
-
+        <a href="http://fufufu.moe/" target="_blank">fufufu.moe</a><br/>
         <a class="icon-btc" href="bitcoin:1936WAoKsytSyGrQQq125chAGdyUqttiwk?label=manga.madokami.com&amp;message=%22bills%22"></a>
     </footer>
 
