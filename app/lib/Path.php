@@ -164,4 +164,24 @@ class Path extends SplFileInfo {
         $ext = $this->getExtension();
         return ($ext && in_array($ext, self::$safeFileExtensions));
     }
+
+    public function export() {
+        $data = new stdClass();
+
+        // FS stat-based info
+        $data->name = $this->getDisplayName();
+        $data->size = $this->getDisplaySize();
+        $data->rawSize = $this->getSize();
+        $data->rawTime = $this->getMTime();
+        $data->url = $this->getUrl();
+        $data->isDir = $this->isDir();
+
+        $record = $this->loadCreateRecord();
+        if($record) {
+            $data->record = $record->export();
+            unset($record);
+        }
+
+        return $data;
+    }
 }
