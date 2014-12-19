@@ -147,8 +147,13 @@ class Path extends SplFileInfo {
         $base = log($size) / log(1024);
         $suffixes = array('', 'K', 'M', 'G', 'T');
         $suffix = $suffixes[floor($base)];
-        // TODO: remove decimal place for kb and bytes
-        return number_format(pow(1024, $base - floor($base)), 1) . $suffix;
+
+        $dp = 1;
+        if($suffix === '' || $suffix === 'K') {
+            $dp = 0;
+        }
+        
+        return number_format(pow(1024, $base - floor($base)), $dp) . $suffix;
     }
 
     public function getDisplayTime($short = false) {
