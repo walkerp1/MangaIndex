@@ -16,12 +16,8 @@ class IndexController extends BaseController {
             return $this->download($path);
         }
 
-        // don't do this, it'll blow the memory on large dirs
-        //$ignoreCache = Input::get('ignorecache', false);
-        $ignoreCache = false;
-
         $path->loadCreateRecord($path);
-        $children = $this->exportChildren($path, $ignoreCache);
+        $children = $this->exportChildren($path);
 
         $orderParams = $this->doSorting($children);
 
@@ -95,81 +91,19 @@ class IndexController extends BaseController {
         return $params;
     }
 
-    protected function exportChildren(Path $path, $ignoreCache) {
+    protected function exportChildren(Path $path) {
         $children = array();
         $pathChildren = $path->getChildren();
 
         foreach($pathChildren as $child) {
             $hash = $child->getHash();
 
-            if($ignoreCache) {
-                $children[] = $this->exportPath($child);
-            }
-            else {
-                $children[] = Cache::tags('paths')->rememberForever($hash, function() use($child) {
-                    return $this->exportPath($child);
-                });
-            }
+            $children[] = Cache::tags('paths')->rememberForever($hash, function() use($child) {
+                return $child->export();
+            });
         }
 
         return $children;
-    }
-
-    protected function exportPath($path) {
-        $data = new stdClass();
-
-        // FS stat-based info
-        $data->name = $path->getDisplayName();
-        $data->size = $path->getDisplaySize();
-        $data->rawSize = $path->getSize();
-        $data->rawTime = $path->getMTime();
-        $data->url = $path->getUrl();
-        $data->isDir = $path->isDir();
-
-        $record = $path->loadCreateRecord(); // TODO: load all child records using a single IN query
-        if($record) {
-
-            // if we've got a series, then load series and facets data
-            if($record->series_id > 0) {
-                $record->load('series.facets');
-            }
-
-            // convert to stdClass for easy use
-            $recordData = (object)$record->toArray();
-
-            // process series data
-            if(isset($recordData->series)) {
-                $recordData->series = (object)$recordData->series;
-
-                if(isset($recordData->series->facets)) {
-                    $recordData->series->facets = $this->processFacets($recordData->series->facets);
-                    $recordData->series->groupedStaff = $record->series->getGroupedStaff();
-                }
-            }
-
-            $data->record = $recordData;
-
-            unset($record);
-        }
-
-        return $data;
-    }
-
-    // group all facets by type
-    protected function processFacets($facets) {
-        $ret = new stdClass();
-
-        foreach($facets as $facet) {
-            $type = $facet['pivot']['type'];
-
-            if(!isset($ret->$type)) {
-                $ret->$type = array();
-            }
-
-            $ret->{$type}[] = $facet['name'];
-        }
-
-        return $ret;
     }
 
     public function save() {

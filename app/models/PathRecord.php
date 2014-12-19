@@ -95,4 +95,44 @@ class PathRecord extends Eloquent {
     public function shouldHash() {
         return (!$this->hashed_at || strtotime($this->modified) > strtotime($this->hashed_at));
     }
+
+    public function export() {
+        // if we've got a series, then load series and facets data
+        if($this->series_id > 0) {
+            $this->load('series.facets');
+        }
+
+        // convert to stdClass for easy use
+        $recordData = (object)$this->toArray();
+
+        // process series data
+        if(isset($recordData->series)) {
+            $recordData->series = (object)$recordData->series;
+
+            // export facets
+            if(isset($recordData->series->facets)) {
+                $recordData->series->facets = self::processExportedFacets($recordData->series->facets);
+                $recordData->series->groupedStaff = $this->series->getGroupedStaff();
+            }
+        }
+        
+        return $recordData;
+    }
+
+    // group all facets by type
+    protected static function processExportedFacets($facets) {
+        $ret = new stdClass();
+
+        foreach($facets as $facet) {
+            $type = $facet['pivot']['type'];
+
+            if(!isset($ret->$type)) {
+                $ret->$type = array();
+            }
+
+            $ret->{$type}[] = $facet['name'];
+        }
+
+        return $ret;
+    }
 }
