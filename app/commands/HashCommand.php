@@ -6,42 +6,42 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class HashCommand extends Command {
 
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
-	protected $name = 'command:hash';
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'command:hash';
 
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
-	protected $description = 'Command description.';
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Command description.';
 
-	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-	}
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
-	/**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
-	public function fire()
-	{
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function fire()
+    {
         $basePath = Config::get('app.manga_path');
         $path = new Path($basePath);
 
         $this->processPath($path);
-	}
+    }
 
     protected function processPath(Path $path) {
         if(!$path->isDir()) {
@@ -190,28 +190,28 @@ class HashCommand extends Command {
         return in_array($ext, $validExt);
     }
 
-	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
-	protected function getArguments()
-	{
-		return array(
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return array(
             //array('worker', InputArgument::REQUIRED, 'ID of worker (1 or 0)'),
-		);
-	}
+        );
+    }
 
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
-	protected function getOptions()
-	{
-		return array(
-			//array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
-		);
-	}
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return array(
+            //array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
+        );
+    }
 
 }

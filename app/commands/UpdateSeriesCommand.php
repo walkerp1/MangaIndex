@@ -6,37 +6,37 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class UpdateSeriesCommand extends Command {
 
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
-	protected $name = 'command:updateseries';
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'command:updateseries';
 
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
-	protected $description = 'Command description.';
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Command description.';
 
-	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-	}
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
-	/**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
-	public function fire()
-	{
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function fire()
+    {
         while(true) {
             $result = Series::whereNeedsUpdate(true)->take(100)->get();
 
@@ -49,30 +49,30 @@ class UpdateSeriesCommand extends Command {
                 $series->updateMuData();
             }
         }
-	}
+    }
 
-	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
-	protected function getArguments()
-	{
-		return array(
-			//array('example', InputArgument::REQUIRED, 'An example argument.'),
-		);
-	}
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return array(
+            //array('example', InputArgument::REQUIRED, 'An example argument.'),
+        );
+    }
 
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
-	protected function getOptions()
-	{
-		return array(
-			//array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
-		);
-	}
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return array(
+            //array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
+        );
+    }
 
 }
