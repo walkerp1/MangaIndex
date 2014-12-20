@@ -9,11 +9,8 @@
     <title><?php if(isset($pageTitle) && !empty($pageTitle)): ?>{{{ $pageTitle }}} - <?php endif; ?>/a/ manga</title>
 
     <link rel="icon" type="image/png" href="/img/icon.png">
-    
-    <link href="/css/normalize.css" rel="stylesheet">
-    <link href="/css/jquery-ui.structure.css" rel="stylesheet">
-    <link href="/css/fonts.css" rel="stylesheet">
-    <link href="/css/manga.css" rel="stylesheet">
+
+    {{ Minify::stylesheet(array($stylesheets)) }}
 </head>
 <body>
     @yield('pageHeading')
@@ -59,9 +56,7 @@
         <a class="icon-btc" href="bitcoin:1936WAoKsytSyGrQQq125chAGdyUqttiwk?label=manga.madokami.com&amp;message=%22bills%22"></a>
     </footer>
 
-    <script src="/js/jquery.js"></script>
-    <script src="/js/jquery-ui.js"></script>
-    <script src="/js/manga.js"></script>
+    {{ Minify::javascript(array($javascripts)) }}
 
     <?php if(isset($gaId)): ?>
         <script>

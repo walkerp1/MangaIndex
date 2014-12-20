@@ -15,6 +15,23 @@ class BaseController extends Controller {
         // google analytics id
         $gaId = Config::get('app.ga_id');
         View::share('gaId', $gaId);
+
+        $stylesheets = array(
+            '/css/normalize.css',
+            '/css/jquery-ui.structure.css',
+            '/css/fonts.css',
+            '/css/manga.css'
+        );
+
+        View::share('stylesheets', $stylesheets);
+
+        $javascripts = array(
+            '/js/jquery.js',
+            '/js/jquery-ui.js',
+            '/js/manga.js'
+        );
+
+        View::share('javascripts', $javascripts);
     }
 
 	/**
