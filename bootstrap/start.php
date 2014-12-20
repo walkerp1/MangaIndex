@@ -27,7 +27,10 @@ $app = new Illuminate\Foundation\Application;
 // try and load env from .env file
 $envFile = __DIR__.'/../.env';
 if(file_exists($envFile)) {
-    $env = trim(file_get_contents($envFile));
+    $envName = trim(file_get_contents($envFile));
+    $env = $app->detectEnvironment(function() use($envName) {
+        return $envName;
+    });
 }
 else { // detect env via hostname
     $env = $app->detectEnvironment(array(
