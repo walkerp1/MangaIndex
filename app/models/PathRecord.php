@@ -41,6 +41,12 @@ class PathRecord extends Eloquent {
                 $record->$field = $value;
             }
 
+            $parent = $path->getParent();
+            if($parent) {
+                $parentRecord = $parent->loadCreateRecord();
+                $record->parent_id = $parentRecord->id;
+            }
+
             $record->save();
         }
 
@@ -55,13 +61,6 @@ class PathRecord extends Eloquent {
         $ret['size'] = $path->getSize();
         $ret['created'] = date('Y-m-d H:i:s', $path->getCTime());
         $ret['modified'] = date('Y-m-d H:i:s', $path->getMTime());
-
-        // load the parent record
-        $parent = $path->getParent();
-        if($parent) {
-            $parentRecord = $parent->loadCreateRecord();
-            $ret['parent_id'] = $parentRecord->id;
-        }
 
         return $ret;
     }
@@ -91,9 +90,20 @@ class PathRecord extends Eloquent {
             }
         }
 
+        // all paths apart from root should have a parent assigned
+        if(!$this->parent_id && !$path->isRoot()) {
+            $dirty = true;
+        }
+
         if($dirty) {
             foreach($fields as $field => $value) {
                 $this->$field = $value;
+            }
+
+            $parent = $path->getParent();
+            if($parent) {
+                $parentRecord = $parent->loadCreateRecord();
+                $this->parent_id = $parentRecord->id;
             }
 
             $this->save();
