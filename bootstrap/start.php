@@ -24,18 +24,19 @@ $app = new Illuminate\Foundation\Application;
 |
 */
 
-$env = $app->detectEnvironment(array(
-
-    'local' => array('Oscar-PC'),
-    //'test' => array('madokami.com')
-    'production' => array('madokami.com')
-));
-
-// set test env for staging site
-// obviously doesn't work for CLI
-if(isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] === 'test.mangaindex.madokami.com') {
-	$env = 'test';
+// try and load env from .env file
+$envFile = __DIR__.'/../.env';
+if(file_exists($envFile)) {
+    $env = trim(file_get_contents($envFile));
 }
+else { // detect env via hostname
+    $env = $app->detectEnvironment(array(
+        'local' => array('Oscar-PC'),
+        'production' => array('madokami.com')
+    ));
+}
+
+
 
 /*
 |--------------------------------------------------------------------------

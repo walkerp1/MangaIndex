@@ -11,7 +11,6 @@
 |
 */
 
-Artisan::add(new ImportCommand());
 Artisan::add(new IndexCommand());
 Artisan::add(new HashCommand());
 Artisan::add(new UpdateSeriesCommand());

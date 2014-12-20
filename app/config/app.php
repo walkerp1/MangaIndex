@@ -127,6 +127,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
         'Barryvdh\Debugbar\ServiceProvider',
         'Roumen\Feed\FeedServiceProvider',
+        'CeesVanEgmond\Minify\MinifyServiceProvider',
 
 	),
 

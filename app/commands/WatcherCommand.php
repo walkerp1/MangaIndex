@@ -6,19 +6,19 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class WatcherCommand extends Command {
 
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
-	protected $name = 'command:watcher';
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'command:watcher';
 
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
-	protected $description = 'Command description.';
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Command description.';
 
     protected $watchEvents = array(
         IN_ATTRIB => 'IN_ATTRIB',
@@ -33,25 +33,25 @@ class WatcherCommand extends Command {
 
     protected $computedMask = null;
 
-	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::__construct();
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
 
         $this->computeMask();
-	}
+    }
 
-	/**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
-	public function fire()
-	{
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function fire()
+    {
         $watches = array();
 
         $in = inotify_init();
@@ -92,7 +92,7 @@ class WatcherCommand extends Command {
                 }
             }
         }
-	}
+    }
 
     protected function addWatches($in, Path $path, &$watches) {
         if(!$path->isDir()) {
@@ -136,28 +136,28 @@ class WatcherCommand extends Command {
         return $ret;
     }
 
-	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
-	protected function getArguments()
-	{
-		return array(
-			//array('example', InputArgument::REQUIRED, 'An example argument.'),
-		);
-	}
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return array(
+            //array('example', InputArgument::REQUIRED, 'An example argument.'),
+        );
+    }
 
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
-	protected function getOptions()
-	{
-		return array(
-			//array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
-		);
-	}
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return array(
+            //array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
+        );
+    }
 
 }
