@@ -55,6 +55,14 @@ class PathRecord extends Eloquent {
         $ret['size'] = $path->getSize();
         $ret['created'] = date('Y-m-d H:i:s', $path->getCTime());
         $ret['modified'] = date('Y-m-d H:i:s', $path->getMTime());
+
+        // load the parent record
+        $parent = $path->getParent();
+        if($parent) {
+            $parentRecord = $parent->loadCreateRecord();
+            $ret['parent_id'] = $parentRecord->id;
+        }
+
         return $ret;
     }
 

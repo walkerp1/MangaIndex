@@ -66,8 +66,7 @@ class Path extends SplFileInfo {
 
         return $this->record;
     }
-
-    // may not work well on directories
+    
     public function getParent() {
         if(!$this->isRoot()) {
             return new Path($this->getPath());
