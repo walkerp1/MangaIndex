@@ -46,6 +46,16 @@
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
+                        <?php if($notifyCount > 0): ?>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td>
+                                        <button id="dismiss-notify-all" name="all" value="true" class="button-text">Dismiss all</button>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        <?php endif; ?>
                     </table>
                 </form>
 

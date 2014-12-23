@@ -55,5 +55,10 @@ $(document).ready(function() {
     $('#search-input').autocomplete({
         source: '/search/suggest',
         minLength: 2
-    })
+    });
+
+    // Dismiss all notifications confirm
+    $('#dismiss-notify-all').click(function() {
+        return confirm('Are you sure?');
+    });
 });
