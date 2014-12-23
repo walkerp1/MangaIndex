@@ -54,12 +54,17 @@ class HashCommand extends Command {
 
             // delete old hash records
             $pathRecord->imageHashes()->delete();
-
-            if(in_array($ext, array('zip', 'cbz'))) {
-                $this->processZip($path, $pathRecord);
+            
+            try {
+                if(in_array($ext, array('zip', 'cbz'))) {
+                    $this->processZip($path, $pathRecord);
+                }
+                elseif(in_array($ext, array('rar', 'cbr'))) {
+                    $this->processRar($path, $pathRecord);
+                }
             }
-            elseif(in_array($ext, array('rar', 'cbr'))) {
-                $this->processRar($path, $pathRecord);
+            catch(Exception $e) {
+                printf("ERROR\n");
             }
         }
         elseif($path->getRelative() !== '/Admin cleanup') {
