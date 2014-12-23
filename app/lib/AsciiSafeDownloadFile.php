@@ -16,6 +16,7 @@ class AsciiSafeDownloadFile extends File {
     */
     public function getFilename() {
         $orig = parent::getFilename();
+        $orig = str_replace('%', '', $orig);
         return Str::ascii($orig);
     }
 

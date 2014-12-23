@@ -55,7 +55,11 @@ class BaseController extends Controller {
 
         if($path->isSafeExtension()) {
             $file = new AsciiSafeDownloadFile($path->getPathname());
-            return Response::download($file, $path->getBasename());
+            
+            $baseName = $path->getBasename();
+            $baseName = str_replace('%', '', $baseName);
+
+            return Response::download($file, $baseName);
         }
         else {
             App::abort(403, 'Illegal file type.');
