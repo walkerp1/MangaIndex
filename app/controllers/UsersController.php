@@ -34,15 +34,24 @@ class UsersController extends BaseController {
     }
 
     public function dismiss() {
-        $notifyId = Input::get('notification');
-        $notify = Notification::findOrFail($notifyId);
-
         $user = Auth::user();
-        if($notify->user_id !== $user->id) {
+        if(!$user) {
             App::abort(403, 'Unauthorized.');
         }
 
-        $notify->dismiss();
+        if(Input::has('all')) { // dismiss all
+            $user->notifications()->update(array('dismissed' => true));
+        }
+        else { // dismiss single
+            $notifyId = Input::get('notification');
+            $notify = Notification::findOrFail($notifyId);
+
+            if($notify->user_id !== $user->id) {
+                App::abort(403, 'Unauthorized.');
+            }
+
+            $notify->dismiss();
+        }
 
         return Redirect::to('user/notifications');
     }
