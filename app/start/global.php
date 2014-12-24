@@ -33,7 +33,7 @@ ClassLoader::addDirectories(array(
 |
 */
 
-Log::useFiles(storage_path().'/logs/laravel.log');
+Log::useDailyFiles(storage_path().'/logs/log');
 
 /*
 |--------------------------------------------------------------------------
@@ -52,8 +52,10 @@ App::error(function(Exception $exception, $code)
 {
     $logParams = array();
 
-    if(array_key_exists('REQUEST_URI', $_SERVER)) {
-        $logParams['request'] = $_SERVER['REQUEST_URI'];
+    foreach(array('REQUEST_URI', 'HTTP_REFERER') as $key) {
+        if(array_key_exists($key, $_SERVER)) {
+            $logParams[$key] = $_SERVER[$key];
+        }
     }
 
 	Log::error($exception, $logParams);
