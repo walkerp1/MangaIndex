@@ -21,8 +21,6 @@
             <button class="button">Search</button>
         </form>
 
-        <a href="/search/image" class="button">Search by image</a>
-
         <a href="/recent" class="button">Recent uploads</a>
 
         <?php if($user): ?>

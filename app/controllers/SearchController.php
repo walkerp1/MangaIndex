@@ -45,11 +45,15 @@ class SearchController extends BaseController {
     }
 
     public function image() {
+        App::abort(403);
+
         $imagesCount = ImageHash::formattedCount();
         return View::make('search-image', array('pageTitle' => 'Search image', 'imagesCount' => $imagesCount));
     }
 
     public function imageSubmit() {
+        App::abort(403);
+        
         $url = Input::get('url');
 
         if($url) {
