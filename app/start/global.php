@@ -58,7 +58,9 @@ App::error(function(Exception $exception, $code)
         }
     }
 
-	Log::error($exception, $logParams);
+    if($code !== 404) { // don't bother logging 404s
+	   Log::error($exception, $logParams);
+    }
 
     if(Config::get('app.debug') === false) {
         if($code === 403) {
