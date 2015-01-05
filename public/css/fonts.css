@@ -1,8 +1,8 @@
 @font-face {
-	font-family: 'icomoon';
-	src: url('/fonts/icomoon.woff?-gdmb16');
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'icomoon';
+    src: url('/fonts/icomoon.woff?-gdmb16');
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
@@ -19,28 +19,28 @@
     font-style: normal;
 }
 
-[class^="icon-"], [class*=" icon-"] {
-	font-family: 'icomoon';
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
+[class^="icon-"], [class*=" icon-"], .checkbox {
+    font-family: 'icomoon';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
 
-	/* Better Font Rendering =========== */
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .icon-link:before {
-	content: "\e600";
+    content: "\e600";
 }
 .icon-arrow-down:before {
-	content: "\e601";
+    content: "\e601";
 }
 .icon-arrow-up:before {
-	content: "\e602";
+    content: "\e602";
 }
 .icon-btc:before {
     content: "\e603";
