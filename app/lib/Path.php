@@ -6,7 +6,7 @@ class Path extends SplFileInfo {
     protected $hash;
 
     // file extensions that are safe(ish) for users to download
-    protected static $safeFileExtensions = array('zip', 'rar', 'cbz', '7z', 'txt', 'jpg', 'png', 'bmp', 'cbr');
+    protected static $safeFileExtensions = array('zip', 'rar', 'cbz', '7z', 'txt', 'jpg', 'png', 'bmp', 'cbr', 'md5');
 
     public static function fromRelative($relPath) {
         $path = realpath(Config::get('app.manga_path').$relPath);
