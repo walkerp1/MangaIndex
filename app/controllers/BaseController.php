@@ -16,6 +16,12 @@ class BaseController extends Controller {
         $gaId = Config::get('app.ga_id');
         View::share('gaId', $gaId);
 
+        $this->setupAssets();
+        $this->setupStats();
+    }
+
+    // css and js files to include
+    protected function setupAssets() {
         $stylesheets = array(
             '/css/normalize.css',
             '/css/jquery-ui.structure.css',
@@ -32,6 +38,16 @@ class BaseController extends Controller {
         );
 
         View::share('javascripts', $javascripts);
+    }
+
+    // total size used in footer
+    protected function setupStats() {
+        $size = Cache::remember('statTotalSize', 60, function() {
+            return DB::table('path_records')->sum('size');
+        });
+
+        $formatted = DisplaySize::format($size, 2);
+        View::share('statTotalSize', $formatted);
     }
 
 	/**

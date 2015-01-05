@@ -138,25 +138,12 @@ class Path extends SplFileInfo {
 
     public function getDisplaySize() {
         $size = $this->getSize();
-
-        if($size === 0) {
-            return '0';
-        }
-
-        $base = log($size) / log(1024);
-        $suffixes = array('', 'K', 'M', 'G', 'T');
-        $suffix = $suffixes[floor($base)];
-
-        $dp = 1;
-        if($suffix === '' || $suffix === 'K') {
-            $dp = 0;
-        }
-        
-        return number_format(pow(1024, $base - floor($base)), $dp) . $suffix;
+        return DisplaySize::format($size);
     }
 
     public function getDisplayTime($short = false) {
-        return DisplayTime::format($this->getMTime(), $short);
+        $time = $this->getMTime();
+        return DisplayTime::format($time, $short);
     }
 
     public function isSafeExtension() {
