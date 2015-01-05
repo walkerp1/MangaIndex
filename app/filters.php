@@ -17,7 +17,7 @@ App::before(function($request)
         // check we're not already logged in
         if(!Auth::check()) {
             // do auth
-            Auth::basic('username');
+            Auth::basic('username', $request);
 
             //check again
             if(Auth::check()) {
