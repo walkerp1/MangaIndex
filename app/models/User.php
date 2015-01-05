@@ -87,4 +87,9 @@ class User extends Eloquent implements UserInterface {
 
         return ($result > 0);
     }
+
+    public function touchLoggedInDate() {
+        $this->logged_in_at = $this->freshTimestamp();
+        $this->save();
+    }
 }

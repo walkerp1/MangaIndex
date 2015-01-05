@@ -14,21 +14,34 @@
 App::before(function($request)
 {
     if(Config::get('app.require_auth') === true) {
-        // auth
-        return Auth::basic('username');
+        // check we're not already logged in
+        if(!Auth::check()) {
+            // do auth
+            Auth::basic('username');
+
+            //check again
+            if(Auth::check()) {
+                // auth successful
+                $user = Auth::user();
+                $user->touchLoggedInDate(); // update logged_in_at to current datetime
+            }
+            else {
+                // auth failed
+                $headers = array(
+                    'WWW-Authenticate' => 'Basic',
+                    'Content-Type' => 'text/plain'
+                );
+
+                return Response::make('#madokami @ rizon', 401, $headers);
+            }
+        }
     }
 });
 
 
 App::after(function($request, $response)
 {
-    // bit of a hack to change response text from basic auth (which isn't accessible without modifying laravel)
-    if($response->headers->get('www-authenticate') === 'Basic') {
-        if($response->getContent() === 'Invalid credentials.') {
-            $response->headers->set('Content-Type', 'text/plain');
-            $response->setContent('#madokami @ rizon');
-        }
-    }
+    //
 });
 
 /*
@@ -41,6 +54,10 @@ App::after(function($request, $response)
 | integrates HTTP Basic authentication for quick, simple checking.
 |
 */
+
+/*
+
+Not used - commented out to save confusion
 
 Route::filter('auth', function()
 {
@@ -62,6 +79,7 @@ Route::filter('auth.basic', function()
 {
 	return Auth::basic();
 });
+*/
 
 /*
 |--------------------------------------------------------------------------
@@ -74,10 +92,15 @@ Route::filter('auth.basic', function()
 |
 */
 
+/*
+
+Also not used
+
 Route::filter('guest', function()
 {
 	if (Auth::check()) return Redirect::to('/');
 });
+*/
 
 /*
 |--------------------------------------------------------------------------
