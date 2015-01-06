@@ -170,4 +170,13 @@ class Path extends SplFileInfo {
 
         return $data;
     }
+
+    public function canUseHubicUrl() {
+        $mtime = $this->getMTime();
+        if($mtime < strtotime('-8 days')) {
+            return true;
+        }
+
+        return false;
+    }
 }
