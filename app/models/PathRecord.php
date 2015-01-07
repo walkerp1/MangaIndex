@@ -10,10 +10,6 @@ class PathRecord extends Eloquent {
 
         PathRecord::updating(function($record) {
             $record->deleteCache();
-
-            if($record->hashed_at && $record->shouldHash()) {
-                $record->imageHashes()->delete();
-            }
         });
     }
 
@@ -23,10 +19,6 @@ class PathRecord extends Eloquent {
 
     public function series() {
         return $this->belongsTo('Series');
-    }
-
-    public function imageHashes() {
-        return $this->hasMany('ImageHash');
     }
 
     public static function getCreateForPath(Path $path) {
