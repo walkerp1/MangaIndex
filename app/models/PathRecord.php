@@ -39,6 +39,8 @@ class PathRecord extends Eloquent {
                 $record->parent_id = $parentRecord->id;
             }
 
+            $record->hash_md5 = $path->getMd5();
+
             $record->save();
         }
 
@@ -73,12 +75,21 @@ class PathRecord extends Eloquent {
         }
 
         $dirty = false;
+        $fields = null;
 
-        $fields = self::getPathFields($path);
-        foreach($fields as $field => $value) {
-            if($this->$field != $value) {
-                $dirty = true;
-                break;
+        // check if it needs a hash generating
+        if($this->hash_md5 === null && !$path->isDir()) {
+            $dirty = true;
+        }
+
+        // or if any of the fields have changed
+        if(!$dirty) {
+            $fields = self::getPathFields($path);
+            foreach($fields as $field => $value) {
+                if($this->$field != $value) {
+                    $dirty = true;
+                    break;
+                }
             }
         }
 
@@ -88,8 +99,24 @@ class PathRecord extends Eloquent {
         }
 
         if($dirty) {
-            foreach($fields as $field => $value) {
-                $this->$field = $value;
+            if(!$path->isDir()) {
+                $hash = $path->getMd5();
+                if($this->hash_md5 !== null && $this->hash_md5 !== $hash) {
+                    // if a file's hash has changed then it should be treated as a totally
+                    // seperate file, so delete this record and create a new one
+                    $this->delete();
+                    self::getCreateForPath($path);
+                    return;
+                }
+                else {
+                    $this->hash_md5 = $hash;
+                }
+            }
+
+            if($fields) {
+                foreach($fields as $field => $value) {
+                    $this->$field = $value;
+                }
             }
 
             $parent = $path->getParent();

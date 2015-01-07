@@ -43,7 +43,7 @@ class Indexer {
         }
         catch(Exception $e) {
             print((string)$e);
-            Log::error($exception);
+            Log::error($e, array('path' => $path->getRelative()));
         }
     }
 
