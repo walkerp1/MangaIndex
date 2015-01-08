@@ -64,13 +64,14 @@ class BaseController extends Controller {
 	}
 
     protected function download(Path $path) {
+        // record the download in the db
         $record = $path->loadCreateRecord($path);
         $record->downloaded_at = $record->freshTimestamp();
         $record->increment('downloads');
         $record->save();
 
-        if($path->isSafeExtension()) {
-            $file = new AsciiSafeDownloadFile($path->getPathname());
+        if($path->isSafeExtension()) { // check if the extension is safe to download
+            $file = new AsciiSafeDownloadFile($path->getPathname()); // see comments in AsciiSafeDownloadFile class
             
             $baseName = $path->getBasename();
             $baseName = str_replace('%', '', $baseName);
@@ -78,7 +79,7 @@ class BaseController extends Controller {
             return Response::download($file, $baseName);
         }
         else {
-            App::abort(403, 'Illegal file type.');
+            App::abort(403, sprintf('File type "%s" not allowed', $path->getExtension()));
         }
     }
 

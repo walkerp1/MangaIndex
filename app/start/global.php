@@ -39,6 +39,7 @@ if(App::environment() === 'production') {
     $monolog = Log::getMonolog();
     $mailHandler = new Monolog\Handler\NativeMailerHandler('errors@madokami.com', 'MangaIndex - Error', 'noreply@madokami.com');
     $monolog->pushHandler($mailHandler);
+    $mailHandler->setFormatter(new Monolog\Formatter\LineFormatter(null, null, true));
 }
 
 
@@ -70,7 +71,18 @@ App::error(function(Exception $exception, $code)
     }
 
     if(Config::get('app.debug') === false) {
-        if($code === 403) {
+        $message = $exception->getMessage();
+
+        if(!empty($message)) {
+            $title = 'Error';
+
+            if(method_exists($exception, 'getStatusCode')) {
+                $title = $exception->getStatusCode();
+            }
+
+            return Response::view('message', array('title' => $title, 'message' => $message));
+        }
+        elseif($code === 403) {
             return Response::view('message', array('title' => '403', 'message' => 'Access denied'));
         }
         elseif($code === 404) {

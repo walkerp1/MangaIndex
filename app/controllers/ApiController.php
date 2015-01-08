@@ -43,7 +43,7 @@ class ApiController extends BaseController {
         }
     }
 
-    public function changepassword() {
+    public function changePassword() {
         $username = Input::get('username');
         $old = Input::get('old');
         $new = Input::get('new');

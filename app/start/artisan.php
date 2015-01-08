@@ -12,7 +12,6 @@
 */
 
 Artisan::add(new IndexCommand());
-//Artisan::add(new HashCommand());
 Artisan::add(new UpdateSeriesCommand());
 
 // only add if we have inotify, otherwise artisan will die on php notice for undefined constants

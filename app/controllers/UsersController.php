@@ -6,7 +6,7 @@ class UsersController extends BaseController {
         parent::__construct();
 
         if(!Auth::user()) {
-            App::abort(403);
+            App::abort(403, 'Not logged in');
         }
     }
 
@@ -35,9 +35,6 @@ class UsersController extends BaseController {
 
     public function dismiss() {
         $user = Auth::user();
-        if(!$user) {
-            App::abort(403, 'Unauthorized.');
-        }
 
         if(Input::has('all')) { // dismiss all
             $user->notifications()->update(array('dismissed' => true));
@@ -47,7 +44,7 @@ class UsersController extends BaseController {
             $notify = Notification::findOrFail($notifyId);
 
             if($notify->user_id !== $user->id) {
-                App::abort(403, 'Unauthorized.');
+                App::abort(403, 'That notification doesn\'t belong to you');
             }
 
             $notify->dismiss();
@@ -84,7 +81,7 @@ class UsersController extends BaseController {
     public function downloadDismiss(Notification $notification) {
         $user = Auth::user();
         if($notification->user_id !== $user->id) {
-            App::abort(403, 'Unauthorized.');
+            App::abort(403, 'That notification doesn\'t belong to you');
         }
 
         $notification->dismiss();

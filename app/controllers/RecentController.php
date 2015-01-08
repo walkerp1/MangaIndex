@@ -40,37 +40,9 @@ class RecentController extends BaseController {
         return View::make('recent', array('pathBuckets' => $paths, 'pageTitle' => 'Recent uploads'));
     }
 
-    public function rss() {
-        $records = $this->getRecentRecords();
-
-        $feed = Feed::make();
-
-        $feed->title = '/a/ manga';
-        $feed->description = '/a/ manga';
-        $feed->logo = URL::to('/img/icon.png');
-        $feed->link = URL::route('recent');
-        $feed->lang = 'en';
-
-        if(count($records) > 0) {
-            $feed->setDateFormat('datetime');
-            $feed->pubdate = $records[0]->modified;
-        }
-
-        foreach($records as $record) {
-            $path = Path::fromRelative($record->path);
-
-            if($path->exists()) {
-                $link = sprintf('<a href="%s">%s</a>', URL::to($path->getUrl()), $record->path);
-                $feed->add($record->path, 'Madokami', URL::to($path->getUrl()), $record->modified, $link, $link);
-            }
-        }
-
-        return $feed->render('atom');
-    }
-
     protected function getRecentRecords() {
         $records = PathRecord::whereDirectory(false)
-            ->whereRaw('left(path, 5) in ("/Mang", "/Raws")')
+            ->whereRaw('left(path, 5) in ("/Mang", "/Raws")') // TODO: Optimize this
             ->orderBy('modified', 'desc')
             ->take(1000)
             ->get();

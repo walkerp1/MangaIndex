@@ -3,12 +3,10 @@
 class IndexController extends BaseController {
 
     public function index($requestPath) {
-        $mangaPath = Config::get('app.manga_path');
-        $fullPath = realpath($mangaPath.'/'.$requestPath);
-        $path = new Path($fullPath);
+        $path = Path::fromRelative('/'.$requestPath);
 
         if(!$path->exists()) {
-            App::abort(404);
+            App::abort(404, 'Path not found');
         }
 
         // if it's a file then download
@@ -27,6 +25,7 @@ class IndexController extends BaseController {
         $userIsWatching = null;
         $pageTitle = null;
         $relatedSeries = null;
+        
         if($series = $path->record->series) {
             $groupedStaff = $series->getGroupedStaff();
             $genres = $series->getFacetNames('genre');

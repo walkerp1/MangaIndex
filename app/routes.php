@@ -29,7 +29,7 @@ Route::get('/user/notifications/download/{notification}/{filename}', array('as' 
 
 Route::get('/api/muid/{muId}', array('uses' => 'ApiController@muid'));
 Route::get('/api/register', array('uses' => 'ApiController@register'));
-Route::get('/api/changepassword', array('uses' => 'ApiController@changepassword'));
+Route::get('/api/changepassword', array('uses' => 'ApiController@changePassword'));
 
 Route::get('/admin/flushcache', array('uses' => 'AdminController@flushCache'));
 

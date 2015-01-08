@@ -96,11 +96,7 @@ class Path extends SplFileInfo {
     public function exists() {
         return file_exists($this->getPathname());
     }
-
-    public function getMd5() {
-        return md5_file($this->getPathname());
-    }
-
+    
     public function getDisplayName() {
         if($this->isRoot()) {
             return '/';

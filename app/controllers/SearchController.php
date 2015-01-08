@@ -33,6 +33,7 @@ class SearchController extends BaseController {
         return View::make('search', array('keyword' => $match, 'paths' => $paths, 'pageTitle' => $pageTitle));
     }
 
+    // route for e.g /search/genre/drama
     public function searchKeywordType($type = null, $keyword = null) {
         if($type && $keyword) {
             $match = sprintf('"%s:%s"', $type, $keyword);
@@ -46,11 +47,7 @@ class SearchController extends BaseController {
     
     public function suggest() {
         $term = Input::get('term');
-
-        $result = array();
-
         $result = Search::suggest($term);
-
         return Response::json($result);
     }
 }
