@@ -40,7 +40,7 @@
                                     <td>{{{ $path->getDisplayTime() }}}</td>
                                     <td>
                                         <?php if(!$notify->dismissed): ?>
-                                            <button id="dismiss-notify" name="notification" value="{{{ $notify->id }}}" class="button-text">Dismiss</button>
+                                            <button name="notification" value="{{{ $notify->id }}}" class="button-text">Dismiss</button>
                                         <?php endif; ?>
                                     </td>
                                 </tr>
