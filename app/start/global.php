@@ -35,6 +35,13 @@ ClassLoader::addDirectories(array(
 
 Log::useDailyFiles(storage_path().'/logs/log');
 
+if(App::environment() === 'production') {
+    $monolog = Log::getMonolog();
+    $mailHandler = new Monolog\Handler\NativeMailerHandler('errors@madokami.com', 'MangaIndex - Error', 'noreply@madokami.com');
+    $monolog->pushHandler($mailHandler);
+}
+
+
 /*
 |--------------------------------------------------------------------------
 | Application Error Handler
@@ -59,7 +66,7 @@ App::error(function(Exception $exception, $code)
     }
 
     if($code !== 404) { // don't bother logging 404s
-	   Log::error($exception, $logParams);
+        Log::error($exception, $logParams);
     }
 
     if(Config::get('app.debug') === false) {
