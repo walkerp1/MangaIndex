@@ -63,4 +63,28 @@ class BaseController extends Controller {
 		}
 	}
 
+    protected function download(Path $path) {
+        $record = $path->loadCreateRecord($path);
+        $record->downloaded_at = $record->freshTimestamp();
+        $record->increment('downloads');
+        $record->save();
+
+        if(!$path->isSafeExtension()) {
+            App::abort(403, 'Illegal file type.');
+        }
+
+        if($path->canUseHubicUrl()) {
+            $url = Hubic::generateUrlForPath($path);
+            return Redirect::to($url);
+        }
+        else {
+            $file = new AsciiSafeDownloadFile($path->getPathname());
+            
+            $baseName = $path->getBasename();
+            $baseName = str_replace('%', '', $baseName);
+
+            return Response::download($file, $baseName);
+        }
+    }
+
 }
