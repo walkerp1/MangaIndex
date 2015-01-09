@@ -48,10 +48,6 @@ $(document).ready(function() {
         return false;
     });
 
-    $('a.icon-btc').click(function() {
-        ga && ga('send', 'event', 'button', 'click', 'btc', true);
-    });
-
     $('#search-input').autocomplete({
         source: '/search/suggest',
         minLength: 2
@@ -60,5 +56,28 @@ $(document).ready(function() {
     // Dismiss all notifications confirm
     $('#dismiss-notify-all').click(function() {
         return confirm('Are you sure?');
+    });
+
+    // report button
+    $('.report-button').click(function() {
+        var button = $(this);
+        var row = button.parents('tr');
+
+        if(!button.data('open')) {
+            button.data('open', true);
+
+            var reportRow = $('.template .report-row').clone();
+            var expand = $('.expand', reportRow);
+
+            $('textarea, button, input', expand).prop('disabled', false);
+            $('input[name="record"]', expand).val(row.data('record'));
+
+            row.after(reportRow);
+
+            var newHeight = expand.height('auto').height();
+            expand.height(0).height(newHeight);
+        }
+
+        return false;
     });
 });

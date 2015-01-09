@@ -38,11 +38,12 @@
                                 <a class="order order-{{{ $orderDir }}} <?php if($orderMethod === 'time'): ?>active<?php endif; ?>" href="?{{{ http_build_query([ 'order' => 'time', 'dir' => $invOrderDir ]) }}}">Time</a>
                             </th>
                             <th class="tags"></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach($children as $child): ?>
-                            <tr>
+                            <tr data-record="{{{ $child->record->id }}}">
                                 <td>
                                     <a href="{{{ $child->url }}}">{{{ $child->name }}}</a>
                                     <?php if($child->isDir): ?>
@@ -76,6 +77,11 @@
                                         <?php foreach($child->record->series->facets->genre as $genre): ?>
                                             <a href="{{{ Search::url($genre, 'genre') }}}" class="tag">{{{ $genre }}}</a>
                                         <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php if(!$child->isDir): ?>
+                                        <a class="report-button" href="#">Report</a>
                                     <?php endif; ?>
                                 </td>
                             </tr>
@@ -203,4 +209,25 @@
             </form>
         </div>
     <?php endif; ?>
+
+    <form id="report-form" method="post" action="{{{ URL::route('report') }}}">
+        {{ Form::token() }}
+    </form>
+
+    <div class="template">
+        <table>
+            <tr class="report-row">
+                <td colspan="5">
+                    <div class="expand">
+                        <h3>Report file</h3>
+                        <textarea name="reason" placeholder="Report reason" class="input" required form="report-form" disabled></textarea>
+                        <button class="button" form="report-form" disabled>Submit</button>
+                        <a class="button button-report-cancel" href="#">Cancel</a>
+
+                        <input type="hidden" name="record" form="report-form" value disabled>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 @stop

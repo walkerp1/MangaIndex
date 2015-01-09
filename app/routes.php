@@ -20,7 +20,6 @@ Route::get('/search/{keyword?}', array('as' => 'search', 'uses' => 'SearchContro
 Route::get('/search/{type?}/{keyword?}', array('as' => 'searchKeywordType', 'uses' => 'SearchController@searchKeywordType'));
 
 Route::get('/recent', array('as' => 'recent', 'uses' => 'RecentController@recent'));
-Route::get('/recent/rss', array('as' => 'recentRss', 'uses' => 'RecentController@rss'));
 
 Route::post('/user/notifications/watch', array('uses' => 'UsersController@toggleWatch'));
 Route::get('/user/notifications', array('uses' => 'UsersController@notifications'));
@@ -33,5 +32,6 @@ Route::get('/api/changepassword', array('uses' => 'ApiController@changePassword'
 
 Route::get('/admin/flushcache', array('uses' => 'AdminController@flushCache'));
 
+Route::post('/path/report', array('before' => 'csrf', 'as' => 'report', 'uses' => 'IndexController@report'));
 Route::post('/path/save', array('before' => 'csrf', 'uses' => 'IndexController@save'));
 Route::get('{path}', array('uses' => 'IndexController@index'))->where('path', '^.*');

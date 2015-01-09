@@ -44,6 +44,10 @@ ul {
     margin-top: 0;
 }
 
+.template {
+    display: none;
+}
+
 .container {
     padding: 30px;
     box-shadow: 0 0 6px -2px rgba(237, 237, 237, 0.2);
@@ -87,7 +91,6 @@ table tr td:first-child {
 
 td {
     padding: 3px 0;
-    min-width: 50px;
 }
 
 th.time, td.time {
@@ -431,14 +434,23 @@ th a.order.active:after {
     display: inline;
 }
 
-a.icon-btc {
-    font-size: 16px;
-    text-decoration: none;
-    transition: color 150ms;
-    color: inherit;
-    opacity: 0.8;
+tr.report-row .expand {
+    height: 0;
+    overflow: hidden;
+    -webkit-transition: height 200ms;
+    transition: height 200ms;
+    position: relative;
 }
 
-a.icon-btc:hover {
-    color: #e96a81;
+tr.report-row h3 {
+    margin-top: 0;
+}
+
+tr.report-row textarea {
+    width: 100%;
+    max-width: 500px;
+}
+
+tr.report-row .button {
+    vertical-align: top;
 }
