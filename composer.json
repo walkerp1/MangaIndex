@@ -9,8 +9,6 @@
         "coderockr/php-query": "dev-master",
         "barryvdh/laravel-debugbar": "1.7.*",
         "foolz/sphinxql-query-builder": "0.9.*",
-        "tivoka/tivoka": "*",
-        "roumen/feed": "dev-master",
         "ceesvanegmond/minify": "2.0.*"
     },
     "autoload": {

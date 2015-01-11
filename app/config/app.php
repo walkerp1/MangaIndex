@@ -126,8 +126,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
         'Barryvdh\Debugbar\ServiceProvider',
-        'Roumen\Feed\FeedServiceProvider',
-        'CeesVanEgmond\Minify\MinifyServiceProvider',
+        'Minify\MinifyServiceProvider',
 
 	),
 
@@ -196,7 +195,6 @@ return array(
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
         'Debugbar'          => 'Barryvdh\Debugbar\Facade',
-        'Feed'              => 'Roumen\Feed\Facades\Feed',
 
 	),
 

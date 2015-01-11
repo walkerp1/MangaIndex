@@ -2,21 +2,15 @@
 
 App::before(function($request)
 {
-    /*
-    $ref = $request->header('referer');
-    if(!Auth::check() && $ref) {
-        if(parse_url($ref, PHP_URL_HOST) !== Request::getHttpHost()) {
-            $cookie = Cookie::forever('baka', 'hentai');
-            return Response::make('', 403)->withCookie($cookie);
+    if(Input::has('minify')) {
+        if(Input::get('minify')) {
+            Minify::enable();
+        }
+        else {
+            Minify::disable();
         }
     }
-
     
-    if(Cookie::has('baka')) {
-        return Response::make('', 403);
-    }
-    */
-
     if(Config::get('app.require_auth') === true) {
         // check we're not already logged in
         if(!Auth::check()) {
