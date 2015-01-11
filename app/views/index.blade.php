@@ -81,7 +81,7 @@
                                     <?php endif; ?>
                                 </td>
                                 <td>
-                                    <?php if(!$child->record->locked): ?>
+                                    <?php if(isset($child->record->locked) && !$child->record->locked): ?>
                                         <a class="report-link" href="#">Report</a>
                                     <?php endif; ?>
                                 </td>
