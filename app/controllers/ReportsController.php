@@ -9,6 +9,14 @@ class ReportsController extends BaseController {
             ->orderBy('created_at', 'desc')
             ->paginate(30);
 
+        foreach($reports as $key => $report) {
+            $path = $report->pathRecord->getPath();
+            if(!$path->exists()) {
+                $report->delete();
+                unset($reports[$key]);
+            }
+        }
+
         return View::make('reports', array('reports' => $reports, 'pageTitle' => 'Reports'));
     }
 
