@@ -8,7 +8,7 @@
 
     <title><?php if(isset($pageTitle) && !empty($pageTitle)): ?>{{{ $pageTitle }}} - <?php endif; ?>/a/ manga</title>
 
-    <link rel="icon" type="image/png" href="/img/icon.png">
+    <link rel="icon" type="image/png" href="{{{ URL::to('img/icon.png') }}}">
 
     {{ Minify::stylesheet(array($stylesheets)) }}
 </head>
@@ -22,7 +22,7 @@
         </form>
 
         <div class="mobile-break">
-            <a href="/recent" class="button">Recent uploads</a>
+            <a href="{{{ URL::route('recent') }}}" class="button">Recent uploads</a>
 
             <?php if($user): ?>
                 <a href="{{{ URL::route('notifications') }}}" class="button">
@@ -34,7 +34,7 @@
                 </a>
             <?php endif; ?>
 
-            <a href="/reports" class="button">
+            <a href="{{{ URL::route('reports') }}}" class="button">
                 Reports
 
                 <?php if(isset($reportsCount) && $reportsCount > 0): ?>

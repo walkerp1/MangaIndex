@@ -73,6 +73,7 @@ App::error(function(Exception $exception, $code)
 
     if(Config::get('app.debug') === false) {
         $message = $exception->getMessage();
+        $title = $code;
 
         if(!empty($message)) {
             $title = 'Error';
@@ -81,15 +82,15 @@ App::error(function(Exception $exception, $code)
                 $title = $exception->getStatusCode();
             }
         }
+        elseif($exception instanceof Illuminate\Session\TokenMismatchException) {
+            $message = 'You session token is invalid. Please go back and try again.';
+        }
         else {
             // if no message was specified then try and use one from a pre-defined list of HTTP errors
             $codeMessages = array(
                 403 => 'Access denied',
                 404 => 'The requested resource was not found'
             );
-
-            // use the code as the title
-            $title = $code;
 
             if(array_key_exists($code, $codeMessages)) {
                 $message = $codeMessages[$code];

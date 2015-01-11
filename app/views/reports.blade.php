@@ -2,7 +2,7 @@
 
 @section('pageHeading')
     <h1>
-        Reports
+        <a href="/">/</a> Reports ({{{ $reportsCount }}})
     </h1>
 @stop
 
@@ -19,10 +19,7 @@
     </div>
 
     <div class="container">
-        <div id="back-nav">
-            <a href="/">Back</a>
-        </div>
-
+        <?php if(count($reports) > 0): ?>
         <form method="post" action="{{{ URL::route('reportDismiss') }}}">
             {{ Form::token() }}
             
@@ -70,6 +67,11 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
+            <?php else: ?>
+                <p>
+                    No reports to show!
+                </p>
+            <?php endif; ?>
         </form>
 
         {{ $reports->links() }}

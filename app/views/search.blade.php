@@ -2,7 +2,7 @@
 
 @section('pageHeading')
     <h1>
-        Search results: {{{ $keyword }}}
+        <a href="/">/</a> Search results<?php if($keyword): ?>:<?php endif; ?> {{{ $keyword }}} ({{{ $count }}})
     </h1>
 @stop
 
@@ -11,10 +11,6 @@
     @parent
     
     <div class="container">
-        <div id="back-nav">
-            <a href="/">Back</a>
-        </div>
-
         <?php if(count($paths) > 0): ?>
             <table>
                 <thead>

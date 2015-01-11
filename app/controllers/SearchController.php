@@ -10,8 +10,9 @@ class SearchController extends BaseController {
            $match = Input::get('q'); 
         }
 
+        $count = 0;
         if($match) {
-            $result = Search::searchPaths($match);
+            $result = Search::searchPaths($match, $count);
         }
         else {
             $result = array();
@@ -30,7 +31,7 @@ class SearchController extends BaseController {
         // page title
         $pageTitle = 'Search: '.$match;
 
-        return View::make('search', array('keyword' => $match, 'paths' => $paths, 'pageTitle' => $pageTitle));
+        return View::make('search', array('keyword' => $match, 'paths' => $paths, 'pageTitle' => $pageTitle, 'count' => $count));
     }
 
     // route for e.g /search/genre/drama

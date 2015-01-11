@@ -2,7 +2,7 @@
 
 @section('pageHeading')
     <h1>
-        Recent uploads
+        <a href="/">/</a> Recent uploads
     </h1>
 @stop
 
@@ -11,10 +11,6 @@
     @parent
 
     <div class="container">
-        <div id="back-nav">
-            <a href="/">Back</a>
-        </div>
-
         <table>
             <thead>
                 <tr>

@@ -2,7 +2,7 @@
 
 @section('pageHeading')
     <h1>
-        Series upload notifications
+        <a href="/">/</a> Series upload notifications ({{{ $notifyCount }}})
     </h1>
 @stop
 
@@ -11,10 +11,6 @@
     @parent
     
     <div class="container">
-        <div id="back-nav">
-            <a href="/">Back</a>
-        </div>
-
         <?php if(count($watched) > 0 || count($notifications) > 0): ?>
             <h2>New uploads</h2>
             <?php if(count($notifications) === 0): ?>

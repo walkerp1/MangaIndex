@@ -8,10 +8,6 @@
     @parent
 
     <div class="container">
-        <div id="back-nav">
-            <a href="/">Back</a>
-        </div>
-
         <p>
             {{{ $message }}}
         </p>

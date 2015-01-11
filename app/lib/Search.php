@@ -2,12 +2,13 @@
 
 use Foolz\SphinxQL\SphinxQL;
 use Foolz\SphinxQL\Connection;
+use Foolz\SphinxQL\Helper;
 
 class Search {
     
     const SEARCH_THRESHOLD = 6;
     
-    public static function searchPaths($keyword) {
+    public static function searchPaths($keyword, &$count) {
         $conn = self::getSphinxConnection();
 
         $query = SphinxQL::create($conn)
@@ -22,6 +23,11 @@ class Search {
 
         $result = $query->execute();
         $ids = self::getIds($result);
+
+        $metaResult = Helper::create($conn)->showMeta()->execute();
+        $meta = self::sortMeta($metaResult);
+
+        $count = $meta['total_found'];
 
         if(count($ids) > 0) {
             $records = PathRecord::whereIn('id', $ids)->get();
@@ -48,6 +54,16 @@ class Search {
         }
 
         return $ids;
+    }
+
+    protected static function sortMeta($meta) {
+        $result = array();
+
+        foreach($meta as $row) {
+            $result[$row['Variable_name']] = $row['Value'];
+        }
+
+        return $result;
     }
 
     public static function url($keyword, $type = null) {

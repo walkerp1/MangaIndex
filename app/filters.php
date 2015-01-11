@@ -30,7 +30,7 @@ App::before(function($request)
                     'Content-Type' => 'text/plain'
                 );
 
-                return Response::make('#madokami @ rizon', 401, $headers);
+                return Response::make('', 401, $headers);
             }
         }
     }
