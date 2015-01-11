@@ -106,7 +106,7 @@ class IndexController extends BaseController {
     }
 
     public function save() {
-        $pathId = Input::get('path_id');
+        $recordId = Input::get('record');
         $muId = Input::get('mu_id');
         $incomplete = Input::get('incomplete');
         $locked = Input::get('locked');
@@ -115,7 +115,7 @@ class IndexController extends BaseController {
         $comment = Input::get('comment');
 
         // load record
-        $record = PathRecord::findOrFail($pathId);
+        $record = PathRecord::findOrFail($recordId);
 
         // remove series link
         if($delete) {
@@ -150,6 +150,44 @@ class IndexController extends BaseController {
         $record->save();
 
         Session::flash('success', 'Saved path details successfully');
+        return Redirect::back();
+    }
+
+    public function report() {
+        $recordId = Input::get('record');
+        $reason = Input::get('reason');
+
+        if(!$reason) {
+            Session::flash('error', 'Please enter a report reason!');
+            return Redirect::back();
+        }
+
+        $count = Report::where('path_record_id', '=', $recordId)->count();
+        if($count > 0) {
+            Session::flash('error', 'This path has already been reported');
+            return Redirect::back();
+        }
+
+        // load record
+        $record = PathRecord::findOrFail($recordId);
+
+        if($record->locked) {
+            Session::flash('error', 'You cannot report this directory!');
+            return Redirect::back();
+        }
+
+        $report = new Report();
+        $report->path_record_id = $record->id;
+        $report->reason = $reason;
+
+        $user = Auth::user();
+        if($user) {
+            $report->user_id = $user->id;
+        }
+
+        $report->save();
+
+        Session::flash('success', 'Report submitted');
         return Redirect::back();
     }
 }

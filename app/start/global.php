@@ -17,6 +17,7 @@ ClassLoader::addDirectories(array(
 	app_path().'/controllers',
 	app_path().'/models',
     app_path().'/observers',
+    app_path().'/composers',
 	app_path().'/database/seeds',
     app_path().'/lib',
 
@@ -79,17 +80,32 @@ App::error(function(Exception $exception, $code)
             if(method_exists($exception, 'getStatusCode')) {
                 $title = $exception->getStatusCode();
             }
-
-            return Response::view('message', array('title' => $title, 'message' => $message));
-        }
-        elseif($code === 403) {
-            return Response::view('message', array('title' => '403', 'message' => 'Access denied'));
-        }
-        elseif($code === 404) {
-            return Response::view('message', array('title' => '404', 'message' => 'The requested resource was not found'));
         }
         else {
-            return Response::view('message', array('title' => $code, 'message' => 'Server error'));
+            // if no message was specified then try and use one from a pre-defined list of HTTP errors
+            $codeMessages = array(
+                403 => 'Access denied',
+                404 => 'The requested resource was not found'
+            );
+
+            // use the code as the title
+            $title = $code;
+
+            if(array_key_exists($code, $codeMessages)) {
+                $message = $codeMessages[$code];
+            }
+            else {
+                // most likely is a server error if we've reached this far...
+                $message = 'Server error';
+            }
+        }
+
+
+        if(Request::ajax()) {
+            return Response::json(array('result' => false, 'message' => $message), $code);
+        }
+        else {
+            return Response::view('message', array('title' => $title, 'message' => $message), $code);
         }
     }
 });
@@ -122,3 +138,6 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+// view composers
+require app_path().'/composers.php';

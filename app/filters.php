@@ -1,18 +1,22 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application & Route Filters
-|--------------------------------------------------------------------------
-|
-| Below you will find the "before" and "after" events for the application
-| which may be used to do any work before or after a request into your
-| application. Here you may also register your custom route filters.
-|
-*/
-
 App::before(function($request)
 {
+    /*
+    $ref = $request->header('referer');
+    if(!Auth::check() && $ref) {
+        if(parse_url($ref, PHP_URL_HOST) !== Request::getHttpHost()) {
+            $cookie = Cookie::forever('baka', 'hentai');
+            return Response::make('', 403)->withCookie($cookie);
+        }
+    }
+
+    
+    if(Cookie::has('baka')) {
+        return Response::make('', 403);
+    }
+    */
+
     if(Config::get('app.require_auth') === true) {
         // check we're not already logged in
         if(!Auth::check()) {
@@ -44,79 +48,28 @@ App::after(function($request, $response)
     //
 });
 
-/*
-|--------------------------------------------------------------------------
-| Authentication Filters
-|--------------------------------------------------------------------------
-|
-| The following filters are used to verify that the user of the current
-| session is logged into this application. The "basic" filter easily
-| integrates HTTP Basic authentication for quick, simple checking.
-|
-*/
-
-/*
-
-Not used - commented out to save confusion
-
-Route::filter('auth', function()
-{
-	if (Auth::guest())
-	{
-		if (Request::ajax())
-		{
-			return Response::make('Unauthorized', 401);
-		}
-		else
-		{
-			return Redirect::guest('login');
-		}
-	}
-});
-
-
-Route::filter('auth.basic', function()
-{
-	return Auth::basic();
-});
-*/
-
-/*
-|--------------------------------------------------------------------------
-| Guest Filter
-|--------------------------------------------------------------------------
-|
-| The "guest" filter is the counterpart of the authentication filters as
-| it simply checks that the current user is not logged in. A redirect
-| response will be issued if they are, which you may freely change.
-|
-*/
-
-/*
-
-Also not used
-
-Route::filter('guest', function()
-{
-	if (Auth::check()) return Redirect::to('/');
-});
-*/
-
-/*
-|--------------------------------------------------------------------------
-| CSRF Protection Filter
-|--------------------------------------------------------------------------
-|
-| The CSRF filter is responsible for protecting your application against
-| cross-site request forgery attacks. If this special token in a user
-| session does not match the one given in this request, we'll bail.
-|
-*/
-
+// verify _token request param to match token in session
 Route::filter('csrf', function()
 {
-	if (Session::token() != Input::get('_token'))
-	{
+	if (Session::token() != Input::get('_token')) {
 		throw new Illuminate\Session\TokenMismatchException;
 	}
+});
+
+// require logged in user
+Route::filter('auth', function() {
+    if(!Auth::check()) {
+        App::abort(403, 'You are not logged in');
+    }
+});
+
+// require user to have superuser perms
+Route::filter('auth.super', function() {
+    $user = Auth::user();
+    if(!$user) {
+        App::abort(403, 'You are not logged in');
+    }
+    elseif(!$user->hasSuper()) {
+        App::abort(403, 'You don\'t have permission to do that');
+    }
 });

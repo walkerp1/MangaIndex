@@ -84,6 +84,11 @@ tbody tr:hover {
     background: rgb(43, 43, 43);
 }
 
+tr.highlight {
+    border: 1px solid #404040;
+    background: rgb(43, 43, 43);
+}
+
 th:first-child,
 table tr td:first-child {
     padding-left: 20px;
@@ -254,10 +259,13 @@ input.file {
 
 #path-edit-info, #path-edit-comment {
     flex-grow: 1;
+    margin-bottom: 20px;
 }
 
 #path-edit form {
     display: flex;
+    flex-wrap: wrap;
+    margin-bottom: -20px;
 }
 
 #path-edit-comment textarea {
@@ -288,7 +296,7 @@ input.file {
 
 .manga-info {
     width: 248px;
-    margin: 0 auto;
+    margin: 0 auto 20px;
 }
 
 .manga-info.float {
@@ -330,14 +338,20 @@ p.staff {
 }
 
 .search-container {
-    margin: 20px 0;
+    margin: 20px 0 12px;
 }
 
-.search-container .input {
-    margin: 0 10px 0 0;
+.search-container .input,
+.search-container .button {
+    margin-right: 4px;
+    margin-bottom: 8px;
 }
 
 .search-container > form {
+    display: inline-block;
+}
+
+.search-container .mobile-break {
     display: inline-block;
 }
 
@@ -453,4 +467,23 @@ tr.report-row textarea {
 
 tr.report-row .button {
     vertical-align: top;
+}
+
+.report-reason {
+    display: inline-block;
+    max-width: 500px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+}
+
+.report-reason.test-width {
+    max-width: none;
+}
+
+@media (max-width: 640px) {
+    #index-table tr :not(:first-child) {
+        display: none;
+    }
 }

@@ -59,15 +59,17 @@ $(document).ready(function() {
     });
 
     // report button
-    $('.report-button').click(function() {
-        var button = $(this);
-        var row = button.parents('tr');
+    $('.report-link').click(function() {
+        var trigger = $(this);
+        var row = trigger.parents('tr');
 
-        if(!button.data('open')) {
-            button.data('open', true);
+        if(!trigger.data('open')) {
+            trigger.data('open', true);
 
             var reportRow = $('.template .report-row').clone();
             var expand = $('.expand', reportRow);
+
+            reportRow.data('trigger', trigger);
 
             $('textarea, button, input', expand).prop('disabled', false);
             $('input[name="record"]', expand).val(row.data('record'));
@@ -80,4 +82,52 @@ $(document).ready(function() {
 
         return false;
     });
+
+    $('table').on('click', '.button-report-cancel', function() {
+        var trigger = $(this);
+        var row = trigger.parents('tr');
+        row.data('trigger').data('open', false);
+        row.remove();
+    });
+
+    $('.report-reason').each(function() {
+        var reason = $(this);
+        var normalWidth = reason.width();
+
+        reason.addClass('test-width');
+        var fullWidth = reason.width();
+        reason.removeClass('test-width');
+
+        if(normalWidth !== fullWidth) {
+            var view = $('<a href="#" class="report-reason-view">View</a>');
+            view.data('text', reason.text());
+            reason.after(view);
+        }
+    });
+
+    $('#reports-table tr').on('click', '.report-reason-view', function() {
+        var trigger = $(this);
+        alert(trigger.data('text'));
+    });
+
+    if(location.hash.length > 1) {
+        var filename = location.hash.substr(1);
+
+        $('#index-table tbody tr').each(function() {
+            var row = $(this);
+            var fileLink = $('td:first-child a:first-child', row);
+
+            if(fileLink.text() === filename) {
+                row.addClass('highlight');
+
+                // scroll into view
+                var pos = row.offset().top;
+                if(pos > $(window).innerHeight()) {
+                    $(window).scrollTop(pos - 50);
+                }
+
+                return false;
+            }
+        });
+    }
 });

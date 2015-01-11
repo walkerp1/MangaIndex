@@ -25,7 +25,7 @@
 
         <div class="index-container">
             <div class="table-outer">
-                <table>
+                <table id="index-table">
                     <thead>
                         <tr>
                             <th>
@@ -45,9 +45,10 @@
                         <?php foreach($children as $child): ?>
                             <tr data-record="{{{ $child->record->id }}}">
                                 <td>
-                                    <a href="{{{ $child->url }}}">{{{ $child->name }}}</a>
                                     <?php if($child->isDir): ?>
-                                        /
+                                        <a href="{{{ $child->url }}}">{{{ $child->name }}}/</a>
+                                    <?php else: ?>
+                                        <a href="{{{ $child->url }}}">{{{ $child->name }}}</a>
                                     <?php endif; ?>
 
                                     <?php if(isset($child->record->series->groupedStaff) && count($child->record->series->groupedStaff) > 0): ?>
@@ -80,8 +81,8 @@
                                     <?php endif; ?>
                                 </td>
                                 <td>
-                                    <?php if(!$child->isDir): ?>
-                                        <a class="report-button" href="#">Report</a>
+                                    <?php if(!$child->record->locked): ?>
+                                        <a class="report-link" href="#">Report</a>
                                     <?php endif; ?>
                                 </td>
                             </tr>
@@ -161,7 +162,7 @@
 
             <form action="/path/save" method="post">
                 {{ Form::token() }}
-                <input type="hidden" name="path_id" value="{{{ $path->record->id }}}">
+                <input type="hidden" name="record" value="{{{ $path->record->id }}}">
                 <input type="hidden" name="incomplete" value="0">
                 <input type="hidden" name="locked" value="0">
 

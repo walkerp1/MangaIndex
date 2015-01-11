@@ -16,22 +16,32 @@
     @yield('pageHeading')
 
     <div class="search-container">
-        <form method="get" action="/search">
+        <form method="get" action="{{{ URL::route('search') }}}">
             <input type="text" name="q" placeholder="Search" class="input" id="search-input" required />
             <button class="button">Search</button>
         </form>
 
-        <a href="/recent" class="button">Recent uploads</a>
+        <div class="mobile-break">
+            <a href="/recent" class="button">Recent uploads</a>
 
-        <?php if($user): ?>
-            <a href="/user/notifications" class="button">
-                Notifications
+            <?php if($user): ?>
+                <a href="{{{ URL::route('notifications') }}}" class="button">
+                    Notifications
 
-                <?php if($notifyCount > 0): ?>
-                    <span class="notify-label">{{{ $notifyCount }}}</span>
+                    <?php if(isset($notifyCount) && $notifyCount > 0): ?>
+                        <span class="notify-label">{{{ $notifyCount }}}</span>
+                    <?php endif; ?>
+                </a>
+            <?php endif; ?>
+
+            <a href="/reports" class="button">
+                Reports
+
+                <?php if(isset($reportsCount) && $reportsCount > 0): ?>
+                    <span class="notify-label">{{{ $reportsCount }}}</span>
                 <?php endif; ?>
             </a>
-        <?php endif; ?>
+        </div>
     </div> 
 
     <?php if(Session::has('error')): ?>

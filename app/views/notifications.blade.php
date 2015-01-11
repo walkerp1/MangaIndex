@@ -22,7 +22,7 @@
                     You have no new upload notifications!
                 </p>
             <?php else: ?>
-                <form method="post" action="/user/notifications/dismiss">
+                <form method="post" action="{{{ URL::route('notificationDismiss') }}}">
                     {{ Form::token() }}
                     <table>
                         <thead>

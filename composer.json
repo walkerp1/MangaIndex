@@ -19,6 +19,7 @@
             "app/controllers",
             "app/models",
             "app/observers",
+            "app/composers",
             "app/lib",
             "app/database/migrations",
             "app/database/seeds",

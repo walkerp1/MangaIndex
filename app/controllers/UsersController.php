@@ -2,14 +2,6 @@
 
 class UsersController extends BaseController {
 
-    public function __construct() {
-        parent::__construct();
-
-        if(!Auth::user()) {
-            App::abort(403, 'Not logged in');
-        }
-    }
-
     public function notifications() {
         $user = Auth::user();
 
@@ -38,6 +30,7 @@ class UsersController extends BaseController {
 
         if(Input::has('all')) { // dismiss all
             $user->notifications()->update(array('dismissed' => true));
+            Session::flash('success', 'All notifications dismissed');
         }
         else { // dismiss single
             $notifyId = Input::get('notification');
@@ -50,7 +43,7 @@ class UsersController extends BaseController {
             $notify->dismiss();
         }
 
-        return Redirect::to('user/notifications');
+        return Redirect::route('notifications');
     }
 
     public function toggleWatch() {
@@ -58,13 +51,8 @@ class UsersController extends BaseController {
         $series = Series::findOrFail($seriesId);
         $user = Auth::user();
 
-        if(!$series || !$user) {
-            if(Request::ajax()) {
-                return Response::json(array('result' => false, 'message' => 'Invalid params'));
-            }
-            else {
-                throw new Exception('Invalid params');
-            }
+        if(!$series) {
+            App::abort(400, 'Invalid params');
         }
         else {
             $watching = $user->watchSeries($series);

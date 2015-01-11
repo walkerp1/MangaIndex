@@ -13,24 +13,27 @@
 
 Route::model('notification', 'Notification');
 
-Route::get('/search/image', array('as' => 'searchImage', 'uses' => 'SearchController@image'));
-Route::post('/search/image/submit', array('as' => 'searchImageSubmit', 'before' => 'csrf', 'uses' => 'SearchController@imageSubmit'));
 Route::get('/search/suggest', array('as' => 'searchSuggest', 'uses' => 'SearchController@suggest'));
 Route::get('/search/{keyword?}', array('as' => 'search', 'uses' => 'SearchController@search'));
 Route::get('/search/{type?}/{keyword?}', array('as' => 'searchKeywordType', 'uses' => 'SearchController@searchKeywordType'));
 
 Route::get('/recent', array('as' => 'recent', 'uses' => 'RecentController@recent'));
 
-Route::post('/user/notifications/watch', array('uses' => 'UsersController@toggleWatch'));
-Route::get('/user/notifications', array('uses' => 'UsersController@notifications'));
-Route::post('/user/notifications/dismiss', array('before' => 'csrf', 'uses' => 'UsersController@dismiss'));
-Route::get('/user/notifications/download/{notification}/{filename}', array('as' => 'notificationDownload', 'uses' => 'UsersController@downloadDismiss'));
+Route::get('/reports', array('as' => 'reports', 'uses' => 'ReportsController@reports'));
+Route::post('/reports/dismiss', array('as' => 'reportDismiss', 'before' => array('csrf', 'auth.super'), 'uses' => 'ReportsController@dismiss'));
+
+Route::group(array('before' => 'auth'), function() {
+    Route::post('/user/notifications/watch', array('uses' => 'UsersController@toggleWatch'));
+    Route::get('/user/notifications', array('as' => 'notifications', 'uses' => 'UsersController@notifications'));
+    Route::post('/user/notifications/dismiss', array('as' => 'notificationDismiss', 'before' => 'csrf', 'uses' => 'UsersController@dismiss'));
+    Route::get('/user/notifications/download/{notification}/{filename}', array('as' => 'notificationDownload', 'uses' => 'UsersController@downloadDismiss'));
+});
 
 Route::get('/api/muid/{muId}', array('uses' => 'ApiController@muid'));
 Route::get('/api/register', array('uses' => 'ApiController@register'));
 Route::get('/api/changepassword', array('uses' => 'ApiController@changePassword'));
 
-Route::get('/admin/flushcache', array('uses' => 'AdminController@flushCache'));
+Route::get('/admin/flushcache', array('before' => 'auth.super', 'uses' => 'AdminController@flushCache'));
 
 Route::post('/path/report', array('before' => 'csrf', 'as' => 'report', 'uses' => 'IndexController@report'));
 Route::post('/path/save', array('before' => 'csrf', 'uses' => 'IndexController@save'));

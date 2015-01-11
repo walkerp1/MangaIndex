@@ -9,7 +9,7 @@
 
 @section('main')
     @parent
-    
+
     <div class="container">
         <div id="back-nav">
             <a href="/">Back</a>
