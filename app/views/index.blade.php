@@ -64,7 +64,7 @@
                                     <?php endif; ?>
 
                                     <?php if(isset($child->record->incomplete) && $child->record->incomplete): ?>
-                                        <span class="tag tag-red incomplete">INCOMPLETE</span>
+                                        <span class="tag tag-red tag-cell">INCOMPLETE</span>
                                     <?php endif; ?>
                                 </td>
                                 <td>

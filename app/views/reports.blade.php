@@ -35,10 +35,13 @@
                 </thead>
                 <tbody>
                     <?php foreach($reports as $report): ?>
-                        <?php $path = $report->pathRecord->getPath(); ?>
+                        <?php $path = $report->getPath(); ?>
                         <tr>
                             <td>
-                                <?php if($path->isDir()): ?>
+                                <?php if(!$path->exists()): ?>
+                                    {{{ $report->path }}}
+                                    <span class="tag tag-red tag-cell">Deleted</span>
+                                <?php elseif($path->isDir()): ?>
                                     <a href="{{{ $path->getUrl() }}}">{{{ $path->getRelative() }}}/</a>
                                 <?php else: ?>
                                     <?php $parent = $path->getParent(); ?>

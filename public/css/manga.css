@@ -158,7 +158,7 @@ a.tag[href]:hover {
     color: inherit;
 }
 
-.tag.incomplete {
+.tag.tag-cell {
     margin-left: 10px;
     margin-bottom: 0;
 }

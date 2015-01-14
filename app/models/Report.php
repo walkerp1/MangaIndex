@@ -31,4 +31,8 @@ class Report extends Eloquent {
         return DisplayTime::format($time, $short);
     }
 
+    public function getPath() {
+        return Path::fromRelative($this->path);
+    }
+
 }

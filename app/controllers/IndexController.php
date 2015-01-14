@@ -178,6 +178,7 @@ class IndexController extends BaseController {
 
         $report = new Report();
         $report->path_record_id = $record->id;
+        $report->path = $record->path;
         $report->reason = $reason;
 
         $user = Auth::user();
