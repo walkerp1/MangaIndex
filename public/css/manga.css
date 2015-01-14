@@ -392,6 +392,12 @@ footer {
     text-align: center;
     border-radius: 4px;
     margin-left: 6px;
+    -webkit-transition: box-shadow 200ms;
+    transition: box-shadow 200ms;
+}
+
+.button:hover .notify-label {
+    box-shadow: 0px 0px 5px 0px #e96a81;
 }
 
 tr.series-paths-expand .paths {

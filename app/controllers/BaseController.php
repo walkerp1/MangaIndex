@@ -32,7 +32,12 @@ class BaseController extends Controller {
             $baseName = $path->getBasename();
             $baseName = str_replace('%', '', $baseName);
 
-            return Response::download($file, $baseName);
+            try {
+                return Response::download($file, $baseName);
+            }
+            catch(InvalidArgumentException $e) {
+                App::abort(500, 'This file has a malformed filename. Please contact an admin.');
+            }
         }
         else {
             App::abort(403, sprintf('File type "%s" not allowed', $path->getExtension()));
