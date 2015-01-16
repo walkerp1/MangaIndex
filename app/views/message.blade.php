@@ -1,7 +1,10 @@
 @extends('layout')
 
 @section('pageHeading')
-    <h1>{{{ $title }}}</h1>
+    <h1>
+        <a href="/">/</a>
+        {{{ $title }}}
+    </h1>
 @stop
 
 @section('main')
