@@ -61,7 +61,7 @@
     <footer>
         {{{ $statTotalSize }}} used<br/>
         #madokami @ rizon<br/>
-        <a href="http://fufufu.moe/" target="_blank">fufufu.moe</a>
+        <a href="https://fufufu.moe/?cache" target="_blank">fufufu.moe</a>
     </footer>
 
     {{ Minify::javascript(array($javascripts)) }}
