@@ -65,7 +65,7 @@ class ReverseIndexCommand extends Command {
                 $path = $record->getPath();
 
                 if(!$path->exists()) {
-                    $this->info($record->path);
+                    $this->line($record->path);
 
                     $count++;
                     $size += $record->size;
