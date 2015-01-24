@@ -11,14 +11,14 @@ class UpdateSeriesCommand extends Command {
      *
      * @var string
      */
-    protected $name = 'command:updateseries';
+    protected $name = 'command:update-series';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description.';
+    protected $description = 'Update series meta';
 
     /**
      * Create a new command instance.

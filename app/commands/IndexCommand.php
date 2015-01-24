@@ -18,7 +18,7 @@ class IndexCommand extends Command {
      *
      * @var string
      */
-    protected $description = 'Command description.';
+    protected $description = 'Add new path records to the database';
 
     /**
      * Create a new command instance.

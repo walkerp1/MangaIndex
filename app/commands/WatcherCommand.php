@@ -18,7 +18,7 @@ class WatcherCommand extends Command {
      *
      * @var string
      */
-    protected $description = 'Command description.';
+    protected $description = 'Load filesystem watcher for indexing paths in realtime';
 
     protected $watchEvents = array(
         IN_ATTRIB => 'IN_ATTRIB',
