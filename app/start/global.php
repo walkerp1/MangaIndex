@@ -83,7 +83,7 @@ App::error(function(Exception $exception, $code)
             }
         }
         elseif($exception instanceof Illuminate\Session\TokenMismatchException) {
-            $message = 'You session token is invalid. Please go back and try again.';
+            $message = 'Your session token is invalid. Please go back and try again.';
         }
         else {
             // if no message was specified then try and use one from a pre-defined list of HTTP errors
