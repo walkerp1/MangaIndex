@@ -103,7 +103,11 @@ class PathRecord extends Eloquent {
             }
 
             $this->save();
+
+            return true;
         }
+
+        return false;
     }
 
     public function export() {

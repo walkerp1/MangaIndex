@@ -40,7 +40,10 @@ class IndexCommand extends Command {
         $basePath = Config::get('app.manga_path');
         $path = new Path($basePath);
 
-        Indexer::index($path);
+        $count = 0;
+        Indexer::index($path, null, $count);
+
+        $this->info(sprintf('Added %s new paths', $count));
     }
 
     /**

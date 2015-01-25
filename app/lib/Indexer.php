@@ -2,7 +2,7 @@
 
 class Indexer {
 
-    public static function index(Path $path, $levels = null) {
+    public static function index(Path $path, $levels = null, &$count = 0) {
         printf("Indexing: %s\n", $path->getRelative());
 
         try {
@@ -20,10 +20,13 @@ class Indexer {
             if(!$record) {
                 // none exists, create it
                 $path->loadCreateRecord();
+                $count++;
             }
             else {
                 // it exists, check if it needs updating
-                $record->checkUpdate($path);
+                if($record->checkUpdate($path)) {
+                    $count++;
+                }
             }
 
             // index children
@@ -36,7 +39,7 @@ class Indexer {
                     $children = $path->getChildren();
 
                     foreach($children as $child) {
-                        self::index($child, $levels);
+                        self::index($child, $levels, $count);
                     }
                 }
             }
