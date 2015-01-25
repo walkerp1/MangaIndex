@@ -18,7 +18,7 @@ var Reader = function() {
     };
 
     this.imageUrl = function(filePath) {
-        return '/reader/image/?' + $.param({ path: this.path, file: filePath });
+        return '/reader/image/' + encodeURIComponent(this.path + ':' + filePath);
     };
 
 };
