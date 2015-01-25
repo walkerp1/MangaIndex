@@ -48,6 +48,15 @@ class GlobalComposer {
         );
 
         $view->with('javascripts', $javascripts);
+
+        // additional assets that can be added on a per-route basis
+        if(!$view->offsetExists('additionalStylesheets')) {
+            $view->with('additionalStylesheets', array());
+        }
+
+        if(!$view->offsetExists('additionalJavascripts')) {
+            $view->with('additionalJavascripts', array());
+        }
     }
 
     // total size used in footer

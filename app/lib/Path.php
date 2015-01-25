@@ -151,6 +151,16 @@ class Path extends SplFileInfo {
         return ($ext && in_array($ext, self::$safeFileExtensions));
     }
 
+    public function canUseReader() {
+        $ext = $this->getExtension();
+        return in_array($ext, array('zip', 'cbz', 'rar', 'cbr'));
+    }
+
+    public function getReaderUrl() {
+        $rel = $this->getRelative();
+        return URL::route('reader', array('path' => rawurlencode($rel)));
+    }
+
     public function export() {
         $data = new stdClass();
 
@@ -161,6 +171,11 @@ class Path extends SplFileInfo {
         $data->rawTime = $this->getMTime();
         $data->url = $this->getUrl();
         $data->isDir = $this->isDir();
+        $data->canUseReader = $this->canUseReader();
+
+        if($data->canUseReader) {
+            $data->readerUrl = $this->getReaderUrl();
+        }
 
         $record = $this->loadCreateRecord();
         if($record) {

@@ -85,6 +85,11 @@
                                         <a class="report-link" href="#">Report</a>
                                     <?php endif; ?>
                                 </td>
+                                <td>
+                                    <?php if($child->canUseReader): ?>
+                                        <a href="{{{ $child->readerUrl }}}">Read</a>
+                                    <?php endif; ?>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
