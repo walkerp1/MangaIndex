@@ -35,6 +35,9 @@ Route::get('/api/changepassword', array('uses' => 'ApiController@changePassword'
 
 Route::get('/admin/flushcache', array('before' => 'auth.super', 'uses' => 'AdminController@flushCache'));
 
+Route::get('/reader/image', array('as' => 'readerImage', 'uses' => 'ReaderController@image'));
+Route::get('/reader/{path}', array('as' => 'reader', 'uses' => 'ReaderController@read'));
+
 Route::post('/path/report', array('before' => 'csrf', 'as' => 'report', 'uses' => 'IndexController@report'));
 Route::post('/path/save', array('before' => 'csrf', 'uses' => 'IndexController@save'));
 Route::get('{path}', array('uses' => 'IndexController@index'))->where('path', '^.*');

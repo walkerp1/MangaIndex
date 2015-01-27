@@ -10,61 +10,63 @@
 
     <link rel="icon" type="image/png" href="{{{ URL::to('img/icon.png') }}}">
 
-    {{ Minify::stylesheet(array($stylesheets)) }}
+    {{ Minify::stylesheet(array($stylesheets, $additionalStylesheets)) }}
 </head>
 <body>
-    @yield('pageHeading')
+    @section('body')
+        @yield('pageHeading')
 
-    <div class="search-container">
-        <form method="get" action="{{{ URL::route('search') }}}">
-            <input type="text" name="q" placeholder="Search" class="input" id="search-input" required />
-            <button class="button">Search</button>
-        </form>
+        <div class="search-container">
+            <form method="get" action="{{{ URL::route('search') }}}">
+                <input type="text" name="q" placeholder="Search" class="input" id="search-input" required />
+                <button class="button">Search</button>
+            </form>
 
-        <div class="mobile-break">
-            <a href="{{{ URL::route('recent') }}}" class="button">Recent uploads</a>
+            <div class="mobile-break">
+                <a href="{{{ URL::route('recent') }}}" class="button">Recent uploads</a>
 
-            <?php if($user): ?>
-                <a href="{{{ URL::route('notifications') }}}" class="button">
-                    Notifications
+                <?php if($user): ?>
+                    <a href="{{{ URL::route('notifications') }}}" class="button">
+                        Notifications
 
-                    <?php if(isset($notifyCount) && $notifyCount > 0): ?>
-                        <span class="notify-label">{{{ $notifyCount }}}</span>
+                        <?php if(isset($notifyCount) && $notifyCount > 0): ?>
+                            <span class="notify-label">{{{ $notifyCount }}}</span>
+                        <?php endif; ?>
+                    </a>
+                <?php endif; ?>
+
+                <a href="{{{ URL::route('reports') }}}" class="button">
+                    Reports
+
+                    <?php if(isset($reportsCount) && $reportsCount > 0): ?>
+                        <span class="notify-label">{{{ $reportsCount }}}</span>
                     <?php endif; ?>
                 </a>
-            <?php endif; ?>
+            </div>
+        </div> 
 
-            <a href="{{{ URL::route('reports') }}}" class="button">
-                Reports
+        <?php if(Session::has('error')): ?>
+            <div class="message message-error">{{{ Session::get('error') }}}</div>
+        <?php endif; ?>
 
-                <?php if(isset($reportsCount) && $reportsCount > 0): ?>
-                    <span class="notify-label">{{{ $reportsCount }}}</span>
-                <?php endif; ?>
-            </a>
-        </div>
-    </div> 
+        <?php if(Session::has('success')): ?>
+            <div class="message message-success">{{{ Session::get('success') }}}</div>
+        <?php endif; ?>
 
-    <?php if(Session::has('error')): ?>
-        <div class="message message-error">{{{ Session::get('error') }}}</div>
-    <?php endif; ?>
+        @section('main')
+            <div id="loli-madokai-container">
+                <div id="loli-madokami"></div>
+            </div>
+        @show
 
-    <?php if(Session::has('success')): ?>
-        <div class="message message-success">{{{ Session::get('success') }}}</div>
-    <?php endif; ?>
-
-    @section('main')
-        <div id="loli-madokai-container">
-            <div id="loli-madokami"></div>
-        </div>
+        <footer>
+            {{{ $statTotalSize }}} used<br/>
+            #madokami @ rizon<br/>
+            <a href="https://fufufu.moe/a/?cache" target="_blank">fufufu.moe</a>
+        </footer>
     @show
 
-    <footer>
-        {{{ $statTotalSize }}} used<br/>
-        #madokami @ rizon<br/>
-        <a href="https://fufufu.moe/a/?cache" target="_blank">fufufu.moe</a>
-    </footer>
-
-    {{ Minify::javascript(array($javascripts)) }}
+    {{ Minify::javascript(array($javascripts, $additionalJavascripts)) }}
 
     <?php if(isset($gaId)): ?>
         <script>

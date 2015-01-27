@@ -44,6 +44,10 @@ ul {
     margin-top: 0;
 }
 
+::-webkit-scrollbar { width: 8px; position: static; }
+::-webkit-scrollbar-track {  border-radius: 10px; }
+::-webkit-scrollbar-thumb { border-radius: 10px; border: 1px solid rgba(233, 106, 129, .5); }
+
 .template {
     display: none;
 }
