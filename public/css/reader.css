@@ -1,11 +1,19 @@
 body {
     padding: 0;
-    overflow: hidden;
 }
 
-#reader-view {
-    text-align: center;
+#reader {
     padding: 0 20px;
-    overflow: auto;
-    height: 100%;
+}
+
+#reader-page {
+    text-align: center;
+    font-size: 0;
+}
+
+#reader-page img {
+    max-width: 100%;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    cursor: pointer;
 }

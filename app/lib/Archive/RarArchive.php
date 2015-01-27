@@ -24,7 +24,26 @@ class RarArchive implements Archive {
             }
         }
 
+        natcasesort($files);
+        $files = array_values($files); //strip keys
+
         return $files;
+    }
+
+    public function getEntryStream($entryName) {
+        $entry = $this->archive->getEntry($entryName);
+
+        if(!$entry) {
+            throw new Exception('Failed to find entry for file: '.$entryName);
+        }
+
+        $stream = $entry->getStream();
+
+        if(!$stream) {
+            throw new Exception('Failed to get stream for file: '.$entryName);
+        }
+
+        return $stream;
     }
     
 }

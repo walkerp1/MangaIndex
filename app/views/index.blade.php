@@ -87,7 +87,7 @@
                                 </td>
                                 <td>
                                     <?php if($child->canUseReader): ?>
-                                        <a href="{{{ $child->readerUrl }}}">Read</a>
+                                        <a href="{{{ $child->readerUrl }}}" target="_blank">Read</a>
                                     <?php endif; ?>
                                 </td>
                             </tr>

@@ -6,4 +6,6 @@ interface Archive {
 
     public function getFiles();
 
+    public function getEntryStream($entryName);
+
 }
