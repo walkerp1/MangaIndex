@@ -61,7 +61,12 @@ class ReaderController extends BaseController {
                 $response->header('Content-Type', 'image/png');
                 break;
         }
-        
+
+
+        $response->header('Last-Modified', gmdate('D, d M Y H:i:s', $path->getMTime()).' GMT');
+        $response->header('Expires', gmdate('D, d M Y H:i:s', strtotime('+1 year')).' GMT');
+        $response->header('Cache-Control', 'public');
+
         return $response;
     }
 

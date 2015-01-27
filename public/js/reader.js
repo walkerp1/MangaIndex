@@ -19,7 +19,7 @@ var Reader = function() {
         this.pageImage.prop('src', url);
 
         if(setHistory) {
-            this.setHistory();
+            this.setHistory(false);
         }
     };
 
@@ -27,13 +27,19 @@ var Reader = function() {
         return '/reader/image?' + $.param({ path: this.path, file: filePath });
     };
 
-    this.setHistory = function() {
+    this.setHistory = function(replace) {
         var state = {
             index: this.currentIndex
         };
 
         var url = this.pageUrl(this.currentIndex);
-        history.pushState(state, document.title, url);
+
+        if(replace) {
+            history.replaceState(state, document.title, url);
+        }
+        else {
+            history.pushState(state, document.title, url);
+        }
     };
 
     $(window).on('popstate', function(e) {
@@ -76,4 +82,5 @@ var Reader = function() {
 $(document).ready(function() {
     var reader = new Reader();
     reader.init();
+    reader.setHistory(true);
 });
