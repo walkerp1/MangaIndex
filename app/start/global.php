@@ -36,14 +36,6 @@ ClassLoader::addDirectories(array(
 
 Log::useDailyFiles(storage_path().'/logs/log');
 
-if(App::environment() === 'production') {
-    $monolog = Log::getMonolog();
-    $mailHandler = new Monolog\Handler\NativeMailerHandler('errors@madokami.com', 'MangaIndex - Error', 'noreply@madokami.com');
-    $monolog->pushHandler($mailHandler);
-    $mailHandler->setFormatter(new Monolog\Formatter\LineFormatter(null, null, true));
-}
-
-
 /*
 |--------------------------------------------------------------------------
 | Application Error Handler
