@@ -14,6 +14,7 @@
 Artisan::add(new IndexCommand());
 Artisan::add(new ReverseIndexCommand());
 Artisan::add(new UpdateSeriesCommand());
+Artisan::add(new UpdateSizeCommand());
 
 // only add if we have inotify, otherwise artisan will die on php notice for undefined constants
 if(extension_loaded('inotify')) {
