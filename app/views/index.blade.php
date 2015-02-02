@@ -62,10 +62,6 @@
                                             <?php endforeach; ?>
                                         </span>
                                     <?php endif; ?>
-
-                                    <?php if(isset($child->record->incomplete) && $child->record->incomplete): ?>
-                                        <span class="tag tag-red tag-cell">INCOMPLETE</span>
-                                    <?php endif; ?>
                                 </td>
                                 <td>
                                     {{{ $child->size }}}
@@ -188,13 +184,6 @@
                             <input type="text" name="mu_id" class="input">
                         </div>
                     <?php endif; ?>
-
-                    <div class="field-row">
-                        <label>
-                            Mark as incomplete
-                            <input type="checkbox" name="incomplete" value="1" class="checkbox" <?php if($path->record->incomplete): ?>checked<?php endif; ?>>
-                        </label>
-                    </div>
 
                     <?php if($user && $user->hasSuper()): ?>
                         <div class="field-row">
