@@ -9,14 +9,6 @@
 
 @section('main')
     @parent
-    
-    <div class="container">
-        <p>
-            FTP access is open to everyone, please feel free to action any of the reported items below.<br/>
-            Each report will be checked and dismissed manually by site mods. If you're interested in helping out with moderation, please enquire on IRC.<br/>
-            (mods can optionally recieve a @madokami.com email address)
-        </p>
-    </div>
 
     <div class="container">
         <?php if(count($reports) > 0): ?>
