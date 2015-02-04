@@ -70,8 +70,6 @@ class WatcherCommand extends Command {
                 $expanded = $this->expandMask($event['mask']);
                 $eventName = trim(implode(', ', $expanded), ', ');
 
-                printf("Event: %s/%s %s\n", $path->getRelative(), $event['name'], $eventName);
-
                 // if the event has a name attached, then index that
                 if($event['name']) {
                     $newPathName = $path->getPathname().'/'.$event['name'];
@@ -82,8 +80,6 @@ class WatcherCommand extends Command {
                     if($newPath->exists() && $newPath->isDir()) {
                         $wd = inotify_add_watch($in, $newPath->getPathname(), $this->computedMask);
                         $watches[$wd] = $newPath;
-
-                        printf("Adding watch: %s\n", $newPath->getRelative());
                     }
                 }
                 else {
