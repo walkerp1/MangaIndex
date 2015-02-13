@@ -492,6 +492,14 @@ tr.report-row .button {
     max-width: none;
 }
 
+#donate-array > * {
+    display: inline-block;
+}
+
+#donate-array > * ~ * {
+    margin-left: 10px;
+}
+
 @media (max-width: 640px) {
     #index-table tr :not(:first-child) {
         display: none;

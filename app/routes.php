@@ -38,6 +38,10 @@ Route::get('/admin/flushcache', array('before' => 'auth.super', 'uses' => 'Admin
 Route::get('/reader/image', array('as' => 'readerImage', 'uses' => 'ReaderController@image'));
 Route::get('/reader/{path}', array('as' => 'reader', 'uses' => 'ReaderController@read'));
 
+Route::get('/donate', array('as' => 'donate', 'uses' => function() {
+    return View::make('donate');
+}));
+
 Route::post('/path/report', array('before' => 'csrf', 'as' => 'report', 'uses' => 'IndexController@report'));
 Route::post('/path/save', array('before' => 'csrf', 'uses' => 'IndexController@save'));
 Route::get('{path}', array('uses' => 'IndexController@index'))->where('path', '^.*');
