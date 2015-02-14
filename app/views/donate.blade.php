@@ -10,7 +10,7 @@
 @section('main')
     <div class="container">
         <p>
-            If you like this site and would like to help support it, please consider donating via one of the things below. Hosting, backup storage, SSL and domain costs average ~£40 total a month currently.
+            If you like this site and would like to help support it, please consider donating via one of the things below. Hosting, backup storage, SSL and domain costs average ~£45 total a month currently.
         </p>
 
         <div id="donate-array">
@@ -22,5 +22,9 @@
                 <button class="button" name="submit" value="">PayPal</button>
             </form>
         </div>
+
+        <P>
+            Or Bitcoin: <a href="bitcoin:1FAGGoT2hCZidQTWJxvUuA1fEE4L6iBRJV?label=manga.madokami.com&amp;message=Hosting%20Bills">1FAGGoT2hCZidQTWJxvUuA1fEE4L6iBRJV</a>
+        </P>
     </div>
 @stop
