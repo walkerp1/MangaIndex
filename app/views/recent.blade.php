@@ -11,7 +11,7 @@
     @parent
 
     <div class="container">
-        <table>
+        <table class="mobile-files-table">
             <thead>
                 <tr>
                     <th>Path</th>

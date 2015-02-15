@@ -25,7 +25,7 @@
 
         <div class="index-container">
             <div class="table-outer">
-                <table id="index-table">
+                <table id="index-table" class="mobile-files-table">
                     <thead>
                         <tr>
                             <th>
