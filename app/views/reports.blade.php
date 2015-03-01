@@ -54,7 +54,7 @@
                                 <?php endif; ?>
                             </td>
                             <td>
-                                <?php if($user->hasSuper()): ?>
+                                <?php if($user && $user->hasSuper()): ?>
                                     <button name="report" value="{{{ $report->id }}}" class="button-text">Dismiss</button>
                                 <?php endif; ?>
                             </td>

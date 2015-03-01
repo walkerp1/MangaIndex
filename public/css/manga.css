@@ -210,7 +210,8 @@ a.tag[href]:hover {
 .button-text {
     background: none;
     border: none;
-    color: #e96a81;  
+    color: #e96a81;
+    padding: 0;
 }
 
 .button-text:hover, .button-text:focus {
@@ -490,14 +491,6 @@ tr.report-row .button {
 
 .report-reason.test-width {
     max-width: none;
-}
-
-#donate-array > * {
-    display: inline-block;
-}
-
-#donate-array > * ~ * {
-    margin-left: 10px;
 }
 
 @media (max-width: 640px) {

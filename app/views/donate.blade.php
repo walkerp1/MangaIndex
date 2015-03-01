@@ -13,18 +13,14 @@
             If you like this site and would like to help support it, please consider donating via one of the things below.
         </p>
 
-        <div id="donate-array">
-            <a href="https://flattr.com/thing/edbe9bf2e2f95a9814a48307bf493f33" target="_blank" class="button">Flattr</a>
-
-            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                <input type="hidden" name="cmd" value="_s-xclick">
-                <input type="hidden" name="hosted_button_id" value="KUZGX59GLPFJ2">
-                <button class="button" name="submit" value="">PayPal</button>
-            </form>
-        </div>
-
-        <P>
-            Or Bitcoin: <a href="bitcoin:1FAGGoT2hCZidQTWJxvUuA1fEE4L6iBRJV?label=manga.madokami.com&amp;message=Hosting%20Bills">1FAGGoT2hCZidQTWJxvUuA1fEE4L6iBRJV</a>
-        </P>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="hosted_button_id" value="KUZGX59GLPFJ2">
+            <button class="button-text" name="submit" value="">PayPal</button>
+        </form>
+        
+        <p>
+            or Bitcoin: <a href="bitcoin:1FAGGoT2hCZidQTWJxvUuA1fEE4L6iBRJV?label=manga.madokami.com&amp;message=Hosting%20Bills">1FAGGoT2hCZidQTWJxvUuA1fEE4L6iBRJV</a>
+        </p>
     </div>
 @stop
