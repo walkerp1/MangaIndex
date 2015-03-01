@@ -11,13 +11,13 @@
     @parent
     
     <div class="container">
-        <?php if(count($watched) > 0 || count($notifications) > 0): ?>
+        @if(count($watched) > 0 || count($notifications) > 0)
             <h2>New uploads</h2>
-            <?php if(count($notifications) === 0): ?>
+            @if(count($notifications) === 0)
                 <p>
                     You have no new upload notifications!
                 </p>
-            <?php else: ?>
+            @else
                 <form method="post" action="{{{ URL::route('notificationDismiss') }}}">
                     {{ Form::token() }}
                     <table>
@@ -29,20 +29,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach($notifications as $notify): ?>
+                            @foreach($notifications as $notify)
                                 <?php $path = $notify->pathRecord->getPath(); ?>
-                                <tr <?php if($notify->dismissed): ?>class="dismissed"<?php endif; ?>>
+                                <tr @if($notify->dismissed)class="dismissed"@endif>
                                     <td><a href="{{{ $notify->getUrl() }}}">{{{ $path->getRelative() }}}</a></td>
                                     <td>{{{ $path->getDisplayTime() }}}</td>
                                     <td>
-                                        <?php if(!$notify->dismissed): ?>
+                                        @if(!$notify->dismissed)
                                             <button name="notification" value="{{{ $notify->id }}}" class="button-text">Dismiss</button>
-                                        <?php endif; ?>
+                                        @endif
                                     </td>
                                 </tr>
-                            <?php endforeach; ?>
+                            @endforeach
                         </tbody>
-                        <?php if($notifyCount > 0): ?>
+                        @if($notifyCount > 0)
                             <tfoot>
                                 <tr>
                                     <td colspan="2"></td>
@@ -51,22 +51,22 @@
                                     </td>
                                 </tr>
                             </tfoot>
-                        <?php endif; ?>
+                        @endif
                     </table>
                 </form>
 
                 {{ $notifications->links() }}
-            <?php endif; ?>
-        <?php endif; ?>
+            @endif
+        @endif
 
         <h2>Watched series</h2>
-        <?php if(count($watched) === 0): ?>
+        @if(count($watched) === 0)
             <p>
                 You have no series watched!<br/>
                 <br/>
                 Visit a directory that has a series assigned and click the "Watch series" button.
             </p>
-        <?php else: ?>
+        @else
             <form method="post" action="/user/notifications/watch">
                 {{ Form::token() }}
                 
@@ -78,38 +78,38 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($watched as $series): ?>
-                            <tr <?php if(count($series->pathRecords) !== 1): ?>class="has-paths"<?php endif; ?>>
+                        @foreach($watched as $series)
+                            <tr @if(count($series->pathRecords) !== 1)class="has-paths"@endif>
                                 <td>
-                                    <?php if(count($series->pathRecords) === 1): ?>
+                                    @if(count($series->pathRecords) === 1)
                                         <?php $path = $series->pathRecords->first()->getPath(); ?>
                                         <a href="{{{ $path->getUrl() }}}">{{{ $series->name }}}</a>
-                                    <?php else: ?>
+                                    @else
                                         <a href="#" class="series-paths-trigger">{{{ $series->name }}}</a>
-                                    <?php endif; ?>
+                                    @endif
                                 </td>
                                 <td>
                                     <button id="unwatch" name="series" value="{{{ $series->id }}}" class="button-text">Unwatch</button>
                                 </td>
                             </tr>
-                            <?php if(count($series->pathRecords) !== 1): ?>
+                            @if(count($series->pathRecords) !== 1)
                                 <tr class="series-paths-expand">
                                     <td colspan="2">
                                         <div class="paths">
                                             <div class="inner">
-                                                <?php foreach($series->pathRecords as $record): ?>
+                                                @foreach($series->pathRecords as $record)
                                                     <?php $path = $record->getPath(); ?>
                                                     <a href="{{{ $path->getUrl() }}}">{{{ $path->getRelativeTop(2) }}}</a><br/>
-                                                <?php endforeach; ?>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
+                            @endif
+                        @endforeach
                     </tbody>
                 </table>
             </form>
-        <?php endif; ?>
+        @endif
     </div>
 @stop

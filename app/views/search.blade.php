@@ -11,7 +11,7 @@
     @parent
     
     <div class="container">
-        <?php if(count($paths) > 0): ?>
+        @if(count($paths) > 0)
             <table>
                 <thead>
                     <tr>
@@ -19,15 +19,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($paths as $path): ?>
+                    @foreach($paths as $path)
                         <tr>
                             <td><a href="{{{ $path->getUrl() }}}">{{{ $path->getRelative() }}}</a></td>
                         </tr>
-                    <?php endforeach; ?>
+                    @endforeach
                 </tbody>
             </table>
-        <?php else: ?>
+        @else
             <p>No results found</p>
-        <?php endif; ?>
+        @endif
     </div>
 @stop

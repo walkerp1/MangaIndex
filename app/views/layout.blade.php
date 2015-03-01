@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width" />
     <meta name="mobile-web-app-capable" content="yes">
 
-    <title><?php if(isset($pageTitle) && !empty($pageTitle)): ?>{{{ $pageTitle }}} - <?php endif; ?>/a/ manga</title>
+    <title>@if(isset($pageTitle) && !empty($pageTitle)) {{{ $pageTitle }}} - @endif/a/ manga</title>
 
     <link rel="icon" type="image/png" href="{{{ URL::to('img/icon.png') }}}">
 
@@ -25,35 +25,35 @@
             <div class="mobile-break">
                 <a href="{{{ URL::route('recent') }}}" class="button">Recent uploads</a>
 
-                <?php if($user): ?>
+                @if($user)
                     <a href="{{{ URL::route('notifications') }}}" class="button">
                         Notifications
 
-                        <?php if(isset($notifyCount) && $notifyCount > 0): ?>
+                        @if(isset($notifyCount) && $notifyCount > 0)
                             <span class="notify-label">{{{ $notifyCount }}}</span>
-                        <?php endif; ?>
+                        @endif
                     </a>
-                <?php endif; ?>
+                @endif
 
                 <a href="{{{ URL::route('reports') }}}" class="button">
                     Reports
 
-                    <?php if(isset($reportsCount) && $reportsCount > 0): ?>
+                    @if(isset($reportsCount) && $reportsCount > 0)
                         <span class="notify-label">{{{ $reportsCount }}}</span>
-                    <?php endif; ?>
+                    @endif
                 </a>
 
                 <a class="button" href="{{{ URL::route('donate') }}}">Donate</a>
             </div>
         </div> 
 
-        <?php if(Session::has('error')): ?>
+        @if(Session::has('error'))
             <div class="message message-error">{{{ Session::get('error') }}}</div>
-        <?php endif; ?>
+        @endif
 
-        <?php if(Session::has('success')): ?>
+        @if(Session::has('success'))
             <div class="message message-success">{{{ Session::get('success') }}}</div>
-        <?php endif; ?>
+        @endif
 
         @section('main')
             <div id="loli-madokai-container">
@@ -70,7 +70,7 @@
 
     {{ Minify::javascript(array($javascripts, $additionalJavascripts)) }}
 
-    <?php if(isset($gaId)): ?>
+    @if(isset($gaId))
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -80,6 +80,6 @@
           ga('create', '{{{ $gaId }}}', 'auto');
           ga('send', 'pageview');
         </script>
-    <?php endif; ?>
+    @endif
 </body>
 </html>
