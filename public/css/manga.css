@@ -360,6 +360,16 @@ p.staff {
     display: inline-block;
 }
 
+.search-container .mobile-break:before {
+    content: '';
+    display: inline-block;
+    width: 1px;
+    height: 26px;
+    background: #404040;
+    margin: 5px 6px 0 1px;
+    vertical-align: top;
+}
+
 .ui-autocomplete {
     background: rgba(27, 27, 27, 1.0);
     box-shadow: 0 0 6px -2px rgba(0, 0, 0, 0.2);
@@ -514,6 +524,10 @@ tr.report-row .button {
     .search-container > form, .search-container .mobile-break {
         display: block;
         text-align: center;
+    }
+
+    .search-container .mobile-break:before {
+        display: none;
     }
 
     #loli-madokai-container {
