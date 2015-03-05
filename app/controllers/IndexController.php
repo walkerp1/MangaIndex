@@ -2,7 +2,7 @@
 
 class IndexController extends BaseController {
 
-    public function index($requestPath) {
+    public function index($requestPath = '') {
         $path = Path::fromRelative('/'.$requestPath);
 
         if(!$path->exists()) {

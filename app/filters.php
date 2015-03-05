@@ -10,30 +10,6 @@ App::before(function($request)
             Minify::disable();
         }
     }
-    
-    if(Config::get('app.require_auth') === true) {
-        // check we're not already logged in
-        if(!Auth::check()) {
-            // do auth
-            Auth::basic('username', $request);
-
-            //check again
-            if(Auth::check()) {
-                // auth successful
-                $user = Auth::user();
-                $user->touchLoggedInDate(); // update logged_in_at to current datetime
-            }
-            else {
-                // auth failed
-                $headers = array(
-                    'WWW-Authenticate' => 'Basic',
-                    'Content-Type' => 'text/plain'
-                );
-
-                return Response::make('', 401, $headers);
-            }
-        }
-    }
 });
 
 

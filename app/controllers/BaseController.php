@@ -20,6 +20,12 @@ class BaseController extends Controller {
 	}
 
     protected function download(Path $path) {
+        // check we're logged in
+        if(!Auth::check()) {
+            Session::flash('redirect', URL::current());
+            return Redirect::route('login');
+        }
+
         // record the download in the db
         $record = $path->loadCreateRecord($path);
         $record->downloaded_at = $record->freshTimestamp();

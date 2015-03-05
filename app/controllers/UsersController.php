@@ -78,4 +78,48 @@ class UsersController extends BaseController {
         return $this->download($path);
     }
 
+    public function login() {
+        $redirect = Session::get('redirect');
+
+        // check we're not already logged in
+        if(!Auth::check()) {
+            // do auth
+            Auth::basic('username');
+
+            //check again
+            if(Auth::check()) {
+                // auth successful
+                $user = Auth::user();
+                $user->touchLoggedInDate(); // update logged_in_at to current datetime
+                Auth::login($user, true); // login and set remember_token
+            }
+            else {
+                // auth failed
+                $headers = array(
+                    'WWW-Authenticate' => 'Basic'
+                );
+
+                $params = array(
+                    'title' => 'Login failed',
+                    'message' => 'Invalid username/password.'
+                );
+
+                Session::flash('redirect', $redirect);
+                return Response::view('message', $params, 401, $headers);
+            }
+        }
+
+        if($redirect) {
+            return Redirect::to($redirect);
+        }
+        else {
+            return Redirect::home();
+        }
+    }
+
+    public function logout() {
+        Auth::logout();
+        return Redirect::home();
+    }
+
 }

@@ -2,9 +2,7 @@
 
 return array(
 
-    'mu_cookie' => 'secure_session=9579bac141471ae0b3b0a0eadf9feb57',
     'ga_id' => 'UA-53705363-1',
-    'require_auth' => true,
 
 	/*
 	|--------------------------------------------------------------------------

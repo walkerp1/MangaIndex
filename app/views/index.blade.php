@@ -79,7 +79,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if(isset($child->record->locked) && !$child->record->locked)
+                                    @if(isset($child->record->locked) && !$child->record->locked && $user)
                                         <a class="report-link" href="#">Report</a>
                                     @endif
                                 </td>

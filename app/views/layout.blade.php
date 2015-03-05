@@ -51,9 +51,9 @@
             </form>
 
             <div class="mobile-break">
-                <a href="{{{ URL::route('recent') }}}" class="button">Recent uploads</a>
-
                 @if($user)
+                    <a href="{{{ URL::route('logout') }}}" class="button">Log out</a>
+
                     <a href="{{{ URL::route('notifications') }}}" class="button">
                         Notifications
 
@@ -61,7 +61,11 @@
                             <span class="notify-label">{{{ $notifyCount }}}</span>
                         @endif
                     </a>
+                @else
+                    <a href="{{{ URL::route('login') }}}" class="button">Log in</a>
                 @endif
+
+                <a href="{{{ URL::route('recent') }}}" class="button">Recent uploads</a>
 
                 <a href="{{{ URL::route('reports') }}}" class="button">
                     Reports

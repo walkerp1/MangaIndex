@@ -142,7 +142,7 @@ class MangaUpdates {
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_FAILONERROR, true);
 
-        $cookie = Config::get('app.mu_cookie');
+        $cookie = $_ENV['MU_COOKIE'];
         curl_setopt($ch, CURLOPT_COOKIE, $cookie);
         curl_setopt($ch, CURLOPT_USERAGENT, self::USER_AGENT);
         

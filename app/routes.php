@@ -22,6 +22,9 @@ Route::get('/recent', array('as' => 'recent', 'uses' => 'RecentController@recent
 Route::get('/reports', array('as' => 'reports', 'uses' => 'ReportsController@reports'));
 Route::post('/reports/dismiss', array('as' => 'reportDismiss', 'before' => array('csrf', 'auth.super'), 'uses' => 'ReportsController@dismiss'));
 
+Route::get('/login', array('as' => 'login', 'uses' => 'UsersController@login'));
+Route::get('/logout', array('as' => 'logout', 'uses' => 'UsersController@logout'));
+
 Route::group(array('before' => 'auth'), function() {
     Route::post('/user/notifications/watch', array('uses' => 'UsersController@toggleWatch'));
     Route::get('/user/notifications', array('as' => 'notifications', 'uses' => 'UsersController@notifications'));
@@ -42,6 +45,7 @@ Route::get('/donate', array('as' => 'donate', 'uses' => function() {
     return View::make('donate');
 }));
 
-Route::post('/path/report', array('before' => 'csrf', 'as' => 'report', 'uses' => 'IndexController@report'));
+Route::post('/path/report', array('before' => 'csrf|auth', 'as' => 'report', 'uses' => 'IndexController@report'));
 Route::post('/path/save', array('before' => 'csrf', 'uses' => 'IndexController@save'));
+Route::get('/', array('as' => 'home', 'uses' => 'IndexController@index'));
 Route::get('{path}', array('uses' => 'IndexController@index'))->where('path', '^.*');
