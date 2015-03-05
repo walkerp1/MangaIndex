@@ -23,7 +23,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'mangaindex_new',
+			'database'  => $_ENV['DB_NAME'],
 			'username'  => $_ENV['DB_USER'],
             'password'  => $_ENV['DB_PASS'],
 			'charset'   => 'utf8',
