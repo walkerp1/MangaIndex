@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration {
             $table->string('password_hash');
             $table->string('remember_token');
             $table->tinyInteger('is_super')->default(0);
-            $table->dateTime('logged_in_at');
+            $table->dateTime('logged_in_at')->nullable();
             $table->timestamps();
         });
     }
