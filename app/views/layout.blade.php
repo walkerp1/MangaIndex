@@ -6,7 +6,22 @@
     <meta name="viewport" content="width=device-width" />
     <meta name="mobile-web-app-capable" content="yes">
 
-    <title>@if(isset($pageTitle) && !empty($pageTitle)) {{{ $pageTitle }}} - @endif/a/ manga</title>
+    @if(isset($pageTitle) && !empty($pageTitle))
+        <title>{{{ $pageTitle }}} - /a/ manga</title>
+        <meta property="og:title" content="{{{ $pageTitle }}} - /a/ manga" />
+    @else
+        <title>/a/ manga</title>
+        <meta property="og:title" content="/a/ manga" />
+    @endif
+
+    @if(isset($pageDescription) && !empty($pageDescription))
+        <meta property="og:description" content="{{{ $pageDescription }}}" />
+        <meta property="description" content="{{{ $pageDescription }}}" />
+    @endif
+
+    @if(isset($pageImage) && !empty($pageDescription))
+        <meta property="og:image" content="{{{ $pageImage }}}" />
+    @endif
 
     <link rel="icon" type="image/png" href="{{{ URL::to('img/icon.png') }}}">
 

@@ -166,7 +166,7 @@ class Series extends Eloquent {
     }
 
     public function getImageUrl() {
-        return '/images/'.$this->image;
+        return URL::to('/images/'.$this->image);
     }
 
     public function hasImage() {

@@ -24,6 +24,8 @@ class IndexController extends BaseController {
         $categories = null;
         $userIsWatching = null;
         $pageTitle = null;
+        $pageDescription = null;
+        $pageImage = null;
         $relatedSeries = null;
         
         if($series = $path->record->series) {
@@ -31,6 +33,12 @@ class IndexController extends BaseController {
             $genres = $series->getFacetNames('genre');
             $categories = $series->getFacetNames('category');
             $pageTitle = $series->name;
+            $pageDescription = $series->description;
+
+            if($series->hasImage()) {
+                $pageImage = $series->getImageUrl();
+            }
+
             $relatedSeries = $series->getRelated();
 
             $user = Auth::user();
@@ -53,6 +61,8 @@ class IndexController extends BaseController {
             'children' => $children,
             'userIsWatching' => $userIsWatching,
             'pageTitle' => $pageTitle,
+            'pageDescription' => $pageDescription,
+            'pageImage' => $pageImage,
             'relatedSeries' => $relatedSeries
         );
 

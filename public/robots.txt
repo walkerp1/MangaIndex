@@ -1,2 +1,7 @@
 User-agent: *
-Disallow: /
+Disallow: /user/*
+Disallow: /reports
+Disallow: /reader/*
+Disallow: /search
+Disallow: /search/*
+Disallow: /login
