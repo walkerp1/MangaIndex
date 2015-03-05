@@ -11,6 +11,19 @@
     <link rel="icon" type="image/png" href="{{{ URL::to('img/icon.png') }}}">
 
     {{ Minify::stylesheet(array($stylesheets, $additionalStylesheets)) }}
+
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "WebSite",
+            "url": "{{{ URL::to('/') }}}",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "{{{ URL::route('search') }}}?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
+        }
+    </script>
 </head>
 <body>
     @section('body')

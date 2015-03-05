@@ -1,9 +1,11 @@
 @extends('layout')
 
 @section('pageHeading')
-    <h1>
+    <h1 itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
         @foreach($breadcrumbs as $index => $crumb)
-            <a href="{{{ $crumb->getUrl() }}}">{{{ $crumb->getDisplayName() }}}</a>
+            <a href="{{{ $crumb->getUrl() }}}" itemprop="url">
+                <span itemprop="title">{{{ $crumb->getDisplayName() }}}</span>
+            </a>
 
             @if($index > 0)
                 <span class="slash">/</span>
@@ -93,37 +95,37 @@
             </div>
 
             @if(isset($path->record->series))
-                <div class="manga-info-outer">
+                <div class="manga-info-outer" itemscope="" itemtype="http://schema.org/Book">
                     <div class="manga-info">
                         <h2>
-                            <span class="title">{{{ $path->record->series->name }}}</span>
-                            <span class="year">[{{{ $path->record->series->year }}}]</span><!--
+                            <span class="title" itemprop="name">{{{ $path->record->series->name }}}</span>
+                            <span class="year" itemprop="datePublished" content="{{{ $path->record->series->year }}}-01-01">[{{{ $path->record->series->year }}}]</span><!--
                             -->&nbsp;<a href="{{{ $path->record->series->getExternalUrl() }}}" target="_blank" class="mu-link icon-link"></a>
                         </h2>
                         <p class="staff" title="Staff">
                             @foreach($groupedStaff as $index => $staff)
-                                <a href="{{{ Search::url($staff) }}}">{{{ $staff }}}</a>
+                                <a href="{{{ Search::url($staff) }}}" itemprop="author">{{{ $staff }}}</a>
                                 @if(($index + 1) < count($groupedStaff))
                                     /
                                 @endif
                             @endforeach
                         </p>
                         @if($path->record->series->hasImage())
-                            <img src="{{ $path->record->series->getImageUrl() }}" alt width="248" />
+                            <img src="{{ $path->record->series->getImageUrl() }}" alt width="248" itemprop="image" />
                         @endif
 
                         @if(count($genres) > 0)
                             <h3>Genres</h3>
                             <div class="genres">
                                 @foreach($genres as $genre)
-                                    <a class="tag" href="{{{ Search::url($genre, 'genre') }}}">{{{ $genre }}}</a>
+                                    <a class="tag" href="{{{ Search::url($genre, 'genre') }}}" itemprop="genre">{{{ $genre }}}</a>
                                 @endforeach
                             </div>
                         @endif
 
                         @if(count($categories) > 0)
                             <h3>Tags</h3>
-                            <div class="genres">
+                            <div class="genres" itemprop="keywords">
                                 @foreach($categories as $category)
                                     <a class="tag tag-category" href="{{{ Search::url($category, 'category') }}}">{{{ $category }}}</a>
                                 @endforeach
