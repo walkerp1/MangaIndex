@@ -48,9 +48,9 @@
                             <tr data-record="{{{ $child->record->id }}}">
                                 <td>
                                     @if($child->isDir)
-                                        <a href="{{{ $child->url }}}">{{{ $child->name }}}/</a>
+                                        <a href="{{{ $child->url }}}" rel="nofollow">{{{ $child->name }}}/</a>
                                     @else
-                                        <a href="{{{ $child->url }}}">{{{ $child->name }}}</a>
+                                        <a href="{{{ $child->url }}}" rel="nofollow">{{{ $child->name }}}</a>
                                     @endif
 
                                     @if(isset($child->record->series->groupedStaff) && count($child->record->series->groupedStaff) > 0)
