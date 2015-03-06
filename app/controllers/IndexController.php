@@ -118,7 +118,6 @@ class IndexController extends BaseController {
     public function save() {
         $recordId = Input::get('record');
         $muId = Input::get('mu_id');
-        $incomplete = Input::get('incomplete');
         $locked = Input::get('locked');
         $delete = Input::get('delete');
         $update = Input::get('update');
@@ -148,7 +147,6 @@ class IndexController extends BaseController {
                 $record->series_id = $series->id;
             }
 
-            $record->incomplete = !!$incomplete;
             $record->comment = $comment;
 
             $user = Auth::user();
