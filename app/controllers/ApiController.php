@@ -24,6 +24,10 @@ class ApiController extends BaseController {
         $username = Input::get('username');
         $password = Input::get('password');
 
+        if(!Auth::check()) {
+            Auth::basic('username');
+        }
+
         $user = Auth::user();
         if(!$user || !$user->hasSuper()) {
             return Response::json(array('result' => false, 'message' => 'Access denied'));
