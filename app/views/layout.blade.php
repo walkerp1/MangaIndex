@@ -7,11 +7,11 @@
     <meta name="mobile-web-app-capable" content="yes">
 
     @if(isset($pageTitle) && !empty($pageTitle))
-        <title>{{{ $pageTitle }}} - /a/ manga</title>
-        <meta property="og:title" content="{{{ $pageTitle }}} - /a/ manga" />
+        <title>{{{ $pageTitle }}} - m/a/dokami</title>
+        <meta property="og:title" content="{{{ $pageTitle }}} - m/a/dokami" />
     @else
-        <title>/a/ manga</title>
-        <meta property="og:title" content="/a/ manga" />
+        <title>m/a/dokami</title>
+        <meta property="og:title" content="m/a/dokami" />
     @endif
 
     @if(isset($pageDescription) && !empty($pageDescription))

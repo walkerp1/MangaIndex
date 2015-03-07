@@ -42,7 +42,7 @@ Route::get('/reader/image', array('as' => 'readerImage', 'uses' => 'ReaderContro
 Route::get('/reader/{path}', array('as' => 'reader', 'uses' => 'ReaderController@read'));
 
 Route::get('/donate', array('as' => 'donate', 'uses' => function() {
-    return View::make('donate');
+    return View::make('donate', array('pageTitle' => 'Donate'));
 }));
 
 Route::post('/path/report', array('before' => 'csrf|auth', 'as' => 'report', 'uses' => 'IndexController@report'));
