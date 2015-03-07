@@ -4,13 +4,6 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
-    "repositories":[
-        {
-            "type": "vcs",
-            "url": "https://github.com/borisrepl/boris",
-            "vendor-alias": "d11wtq"
-        }
-    ],
     "require": {
         "laravel/framework": "4.2.*",
         "coderockr/php-query": "dev-master",
