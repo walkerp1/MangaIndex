@@ -9,3 +9,4 @@ Disallow: /reader/*
 Disallow: /search
 Disallow: /search/*
 Disallow: /login
+Disallow: /api/muid/*
