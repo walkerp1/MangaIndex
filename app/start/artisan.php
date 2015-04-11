@@ -16,6 +16,11 @@ Artisan::add(new ReverseIndexCommand());
 Artisan::add(new UpdateSeriesCommand());
 Artisan::add(new UpdateSizeCommand());
 Artisan::add(new GenerateSitemapCommand());
+Artisan::add(new MergeAutoUploadsCommand());
+
+if(Config::get('app.debug')) {
+    Artisan::add(new DummyPathsCommand());
+}
 
 // only add if we have inotify, otherwise artisan will die on php notice for undefined constants
 if(extension_loaded('inotify')) {
