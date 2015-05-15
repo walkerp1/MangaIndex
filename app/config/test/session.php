@@ -8,6 +8,6 @@ return array(
         array('host' => '127.0.0.1', 'port' => 11211, 'weight' => 100),
     ),
 
-    'prefix' => 'mangaindex_prod',
+    'prefix' => 'mangaindex_test',
     
 );
