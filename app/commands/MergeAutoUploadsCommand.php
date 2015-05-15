@@ -37,6 +37,21 @@ class MergeAutoUploadsCommand extends Command {
 	 */
 	public function fire()
 	{
+        $dryRunOpt = $this->option('dry-run');
+        if($dryRunOpt === true) {
+            $dryRun = true;
+        }
+        elseif($dryRunOpt === 'true') {
+            $dryRun = true;
+        }
+        elseif($dryRunOpt === 'false') {
+            $dryRun = false;
+        }
+        else {
+            $this->error('Invalid value for --dry-run');
+            return;
+        }
+
         $sourceDirectories = array(
             '/Manga/_Autouploads/AutoUploaded from Assorted Sources'
         );
@@ -174,41 +189,43 @@ class MergeAutoUploadsCommand extends Command {
             }
         }
 
-        foreach($movedFiles as $move) {
-            try {
-                if(is_file($move['src'])) {
-                    $dir = dirname($move['src']);
-                    if(!is_dir($dir)) {
-                        mkdir($dir, 0777, true);
+        if(!$dryRun) {
+            foreach ($movedFiles as $move) {
+                try {
+                    if (is_file($move['src'])) {
+                        $dir = dirname($move['src']);
+                        if (!is_dir($dir)) {
+                            mkdir($dir, 0777, true);
+                        }
                     }
-                }
 
-                rename($move['src'], $move['dst']);
-            }
-            catch(ErrorException $exception) {
-                $this->error('ERROR: rename() failed: ' . $seriesChild->getPathName() . ' -> ' . $dstFile.' '.$exception->getMessage());
+                    rename($move['src'], $move['dst']);
+                }
+                catch (ErrorException $exception) {
+                    $this->error('ERROR: rename() failed: ' . $seriesChild->getPathName() . ' -> ' . $dstFile . ' ' . $exception->getMessage());
+                }
             }
         }
 
         file_put_contents(storage_path().'/logs/merge-auto-uploads-'.date('Y-m-d-H-i-s'), serialize($movedFiles));
 
-        // Delete empty source folders
-        foreach($sourceDirectories as $sourceDirectory) {
-            $sourcePath = Path::fromRelative($sourceDirectory);
-            if(!$sourcePath->exists()) {
-                $this->error('Source path does not exist: '.$sourceDirectory);
-                continue;
-            }
+        if(!$dryRun) {
+            // Delete empty source folders
+            foreach ($sourceDirectories as $sourceDirectory) {
+                $sourcePath = Path::fromRelative($sourceDirectory);
+                if (!$sourcePath->exists()) {
+                    $this->error('Source path does not exist: ' . $sourceDirectory);
+                    continue;
+                }
 
-            $sourceChildren = $sourcePath->getChildren();
-            foreach($sourceChildren as $sourceChild) {
-                if(count($sourceChild->getChildren()) === 0) {
-                    rmdir($sourceChild->getPathName());
+                $sourceChildren = $sourcePath->getChildren();
+                foreach ($sourceChildren as $sourceChild) {
+                    if (count($sourceChild->getChildren()) === 0) {
+                        rmdir($sourceChild->getPathName());
+                    }
                 }
             }
         }
-
-
 	}
 
 	/**
@@ -231,7 +248,7 @@ class MergeAutoUploadsCommand extends Command {
 	protected function getOptions()
 	{
 		return array(
-			//array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
+            array('dry-run', null, InputOption::VALUE_OPTIONAL, 'Don\'t actually move any files.', false),
 		);
 	}
 
