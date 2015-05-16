@@ -41,7 +41,7 @@ class Search {
 
     protected static function getSphinxConnection() {
         $conn = new Connection();
-        $sphConfig = Config::get('database.sphinxql');
+        $sphConfig = Config::get('sphinx.ql_connection');
         $conn->setParams($sphConfig);
         return $conn;
     }
