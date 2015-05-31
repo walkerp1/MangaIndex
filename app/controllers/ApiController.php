@@ -10,9 +10,15 @@ class ApiController extends BaseController {
         $export = array();
         foreach($records as $record) {
             if(strpos($record->path, '/Manga/') === 0) {
-                $path = $record->getPath();
-                if($path->exists()) {
-                    $export[] = $record->toArray();
+                // Skip paths
+                if(strpos($record->path, '/Manga/Non-English') === 0) {
+                    continue;
+                }
+                else {
+                    $path = $record->getPath();
+                    if($path->exists()) {
+                        $export[] = $record->toArray();
+                    }
                 }
             }
         }
