@@ -32,7 +32,9 @@ class BaseController extends Controller {
         $record->increment('downloads');
         $record->save();
 
-        if($path->isSafeExtension()) { // check if the extension is safe to download
+        $isMisc = (strpos($path->getRelative(), '/Misc/') === 0);
+
+        if($isMisc || $path->isSafeExtension()) { // check if the extension is safe to download
             $file = new AsciiSafeDownloadFile($path->getPathname()); // see comments in AsciiSafeDownloadFile class
             
             $baseName = $path->getBasename();
