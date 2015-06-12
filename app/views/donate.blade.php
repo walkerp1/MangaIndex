@@ -18,9 +18,5 @@
             <input type="hidden" name="hosted_button_id" value="KUZGX59GLPFJ2">
             <button class="button-text" name="submit" value="">PayPal</button>
         </form>
-        
-        <p>
-            or Bitcoin: <a href="bitcoin:1FAGGoT2hCZidQTWJxvUuA1fEE4L6iBRJV?label=manga.madokami.com&amp;message=Hosting%20Bills">1FAGGoT2hCZidQTWJxvUuA1fEE4L6iBRJV</a>
-        </p>
     </div>
 @stop
