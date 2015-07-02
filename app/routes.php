@@ -20,7 +20,7 @@ Route::get('/search/{type?}/{keyword?}', array('as' => 'searchKeywordType', 'use
 Route::get('/recent', array('as' => 'recent', 'uses' => 'RecentController@recent'));
 
 Route::get('/reports', array('as' => 'reports', 'uses' => 'ReportsController@reports'));
-Route::post('/reports/dismiss', array('as' => 'reportDismiss', 'before' => array('csrf', 'auth.super'), 'uses' => 'ReportsController@dismiss'));
+Route::post('/reports/dismiss', array('as' => 'reportDismiss', 'before' => array('csrf'), 'uses' => 'ReportsController@dismiss'));
 
 Route::get('/login', array('as' => 'login', 'uses' => 'UsersController@login'));
 Route::get('/logout', array('as' => 'logout', 'uses' => 'UsersController@logout'));

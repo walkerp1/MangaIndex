@@ -10,6 +10,9 @@
 @section('main')
     @parent
 
+    <div class="message message-info">FTP access is open (see <a href="/READ.txt" rel="nofollow">READ.txt</a>).
+        Please contribute by fixing issues rather than just reporting them.</div>
+
     <div class="container">
         @if(count($reports) > 0)
             <form method="post" action="{{{ URL::route('reportDismiss') }}}">
@@ -54,9 +57,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if($user && $user->hasSuper())
-                                        <button name="report" value="{{{ $report->id }}}" class="button-text">Dismiss</button>
-                                    @endif
+                                    <button name="report" value="{{{ $report->id }}}" class="button-text">Dismiss</button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

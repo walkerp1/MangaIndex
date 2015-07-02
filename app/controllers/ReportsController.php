@@ -15,6 +15,12 @@ class ReportsController extends BaseController {
     }
 
     public function dismiss() {
+        // check we're logged in
+        if(!Auth::check()) {
+            Session::flash('redirect', URL::route('reports'));
+            return Redirect::route('login');
+        }
+
         $reportId = Input::get('report');
 
         $report = Report::findOrFail($reportId);

@@ -294,6 +294,11 @@ input.file {
     color: #52A954;
 }
 
+.message.message-info {
+    background-color: #f8ffff;
+    color: #276f86;
+}
+
 .manga-info-outer {
     flex-shrink: 1;
     flex-grow: 1;
