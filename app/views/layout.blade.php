@@ -75,7 +75,9 @@
                     @endif
                 </a>
 
+                <!--
                 <a class="button" href="{{{ URL::route('donate') }}}">Donate</a>
+                -->
             </div>
         </div> 
 
