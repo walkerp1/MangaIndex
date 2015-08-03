@@ -89,6 +89,8 @@
             <div class="message message-success">{{{ Session::get('success') }}}</div>
         @endif
 
+        <div class="message message-info">I have set up a pomf.se clone @ <a href="https://madokami.com/" target="_blank">https://madokami.com/</a> - feel free to use.</div>
+
         @section('main')
             <div id="loli-madokai-container">
                 <div id="loli-madokami"></div>
