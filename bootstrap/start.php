@@ -35,7 +35,8 @@ if(file_exists($envFile)) {
 else { // detect env via hostname
     $env = $app->detectEnvironment(array(
         'local' => array('Oscar-PC'),
-        'production' => array('madokami.com')
+        'production' => array('madokami.com'),
+        'jessie64' => array('jessie64'),
     ));
 }
 
