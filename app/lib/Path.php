@@ -111,7 +111,7 @@ class Path extends SplFileInfo {
     }
 
     public function getBreadcrumbs() {
-        if($this->isRoot()) { // root fucks with everything...
+        if($this->isRoot()) {
             $path = Path::fromRelative('/');
             return array($path);
         }

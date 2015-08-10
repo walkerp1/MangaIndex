@@ -1,8 +1,57 @@
 <?php
 
+use Illuminate\Support\Arr;
+
 class IndexController extends BaseController {
 
     public function index($requestPath = '') {
+        $path = Path::fromRelative('/'.$requestPath);
+
+        if(!$path->exists()) {
+            App::abort(404, 'Path not found');
+        }
+
+        // if it's a file then download
+        if($path->isFile()) {
+            return $this->download($path);
+        }
+
+        $record = $path->loadCreateRecord();
+
+        $childPaths = $path->getChildren();
+
+        Debugbar::startMeasure('query');
+
+        $children = DB::table('path_records')
+                    //->select('path_records.id', 'path_records.path', 'path_records.path_hash', 'path_records.directory',
+                    //    'path_records.size', 'path_records.modified', 'path_records.locked')
+                    ->leftJoin('series', 'series.id', '=', 'path_records.series_id')
+                    ->leftJoin('facet_series', 'facet_series.series_id', '=', 'series.id')
+                    ->leftJoin('facets', 'facets.id', '=', 'facet_series.facet_id')
+                    ->where('parent_id', '=', $record->id)
+                    ->orderBy('path_records.path_hash', 'asc')
+                    ->groupBy('path_records.id')
+                    ->get();
+
+        Debugbar::stopMeasure('query');
+
+        Debugbar::startMeasure('format');
+
+        foreach($children as $index => $row) {
+
+        }
+
+        $orderParams = $this->doSorting($children);
+
+        Debugbar::stopMeasure('format');
+
+        return View::make('index', $orderParams)
+            ->with('breadcrumbs', $path->getBreadcrumbs())
+            ->with('path', $path)
+            ->with('children', $children);
+    }
+
+    public function index_old($requestPath = '') {
         $path = Path::fromRelative('/'.$requestPath);
 
         if(!$path->exists()) {
@@ -86,7 +135,7 @@ class IndexController extends BaseController {
         // if the values are default then skip sorting as the paths already in order
         if($orderMethod !== 'name' || $orderDir !== 'asc') {
 
-            Sorting::sort($children, $orderMethod, $orderDir);
+            //Sorting::sort($children, $orderMethod, $orderDir);
         }
 
         $invOrderDir = ($orderDir === 'asc') ? 'desc' : 'asc';

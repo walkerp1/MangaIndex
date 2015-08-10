@@ -45,6 +45,17 @@
                     </thead>
                     <tbody>
                         @foreach($children as $child)
+                            <tr data-record="{{{ $child->id }}}">
+                                <td>
+                                    @if($child->directory)
+                                        <a href="{{ '£' }} {{{ '£' }}}" rel="nofollow">{{{ $child->path }}}/</a>
+                                    @else
+                                        <a href="" rel="nofollow">{{{ $child->path }}}/</a>
+                                    @endif
+                                </td>
+                            </tr>
+
+                            {{--
                             <tr data-record="{{{ $child->record->id }}}">
                                 <td>
                                     @if($child->isDir)
@@ -89,6 +100,7 @@
                                     @endif
                                 </td>
                             </tr>
+                            --}}
                         @endforeach
                     </tbody>
                 </table>
