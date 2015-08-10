@@ -9,7 +9,8 @@
         "coderockr/php-query": "dev-master",
         "barryvdh/laravel-debugbar": "1.7.*",
         "foolz/sphinxql-query-builder": "0.9.*",
-        "ceesvanegmond/minify": "2.0.*"
+        "ceesvanegmond/minify": "2.0.*",
+        "barryvdh/laravel-ide-helper": "~1.11"
     },
     "autoload": {
         "classmap": [
@@ -31,6 +32,7 @@
         ],
         "post-update-cmd": [
             "php artisan clear-compiled",
+            "php artisan ide-helper:generate",
             "php artisan optimize"
         ],
         "post-create-project-cmd": [
