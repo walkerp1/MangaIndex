@@ -13,7 +13,7 @@ class Search {
 
         $query = SphinxQL::create($conn)
             ->select('*')
-            ->from('mangaindexnew_paths')
+            ->from('mangaindex_paths')
             ->where('directory', '=', 1)
             ->limit(0, 100);
 
@@ -103,7 +103,7 @@ class Search {
 
         $query = SphinxQL::create($conn)
             ->select('*')
-            ->from('mangaindexnew_suggested')
+            ->from('mangaindex_suggested')
             ->limit(0, 100);
 
         $keyword = rtrim($keyword, '*').'*';
