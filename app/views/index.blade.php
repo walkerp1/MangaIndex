@@ -45,13 +45,15 @@
                     </thead>
                     <tbody>
                         @foreach($children as $child)
-                            <tr data-record="{{{ $child->id }}}">
+                            <tr>
                                 <td>
-                                    @if($child->directory)
-                                        <a href="{{ '£' }} {{{ '£' }}}" rel="nofollow">{{{ $child->path }}}/</a>
-                                    @else
-                                        <a href="" rel="nofollow">{{{ $child->path }}}/</a>
-                                    @endif
+                                    <a href="{{{ $child['path']->getUrl() }}}">{{{ $child['path']->getDisplayName() }}}</a>
+                                </td>
+                                <td>
+                                    {{{ $child['path']->getDisplaySize() }}}
+                                </td>
+                                <td>
+                                    {{{ $child['path']->getDisplayTime() }}}
                                 </td>
                             </tr>
 

@@ -20,16 +20,17 @@ class IndexController extends BaseController {
 
         $childPaths = $path->getChildren();
 
+
         Debugbar::startMeasure('query');
 
-        $children = DB::table('path_records')
-                    //->select('path_records.id', 'path_records.path', 'path_records.path_hash', 'path_records.directory',
-                    //    'path_records.size', 'path_records.modified', 'path_records.locked')
+        $result = DB::table('path_records')
+                    ->select('path_records.id', 'path_records.path', 'path_records.path_hash', 'path_records.directory',
+                        'path_records.size', 'path_records.modified', 'path_records.locked')
                     ->leftJoin('series', 'series.id', '=', 'path_records.series_id')
                     ->leftJoin('facet_series', 'facet_series.series_id', '=', 'series.id')
                     ->leftJoin('facets', 'facets.id', '=', 'facet_series.facet_id')
                     ->where('parent_id', '=', $record->id)
-                    ->orderBy('path_records.path_hash', 'asc')
+                    //->orderBy('path_records.path', 'asc')
                     ->groupBy('path_records.id')
                     ->get();
 
@@ -37,11 +38,24 @@ class IndexController extends BaseController {
 
         Debugbar::startMeasure('format');
 
-        foreach($children as $index => $row) {
+        $children = array();
 
+        foreach($childPaths as $child) {
+            $children[$child->getHash()] = array(
+                'path' => $child,
+                'record' => null,
+            );
         }
 
-        $orderParams = $this->doSorting($children);
+        foreach($result as $row) {
+            if(array_key_exists($row->path_hash, $children)) {
+                $children[$row->path_hash]['record'] = $row;
+                //$children[$row->path_hash]['size'] = DisplaySize::format($row->size);
+            }
+        }
+
+        $toSort = array();
+        $orderParams = $this->doSorting($toSort);
 
         Debugbar::stopMeasure('format');
 
