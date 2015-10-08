@@ -100,7 +100,6 @@
         <footer>
             {{{ $statTotalSize }}} used<br/>
             #madokami @ rizon<br/>
-            <a href="https://fufufu.moe/a/?cache" target="_blank">fufufu.moe</a>
         </footer>
     @show
 
