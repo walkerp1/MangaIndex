@@ -37,15 +37,17 @@ class DummyPathsCommand extends Command {
 	 */
 	public function fire()
 	{
-        PathRecord::orderBy('directory', 'desc')->chunk(200, function($pathRecords) {
-            $mangaDirectory = Config::get('app.manga_path');
+
+	    $target = $this->option('path');
+
+        PathRecord::orderBy('directory', 'desc')->chunk(200, function($pathRecords) use($target) {
 
             foreach($pathRecords as $pathRecord) {
                 if($pathRecord->path === '/') {
                     continue;
                 }
 
-                $fullPath = $mangaDirectory.$pathRecord->path;
+                $fullPath = $target.'/'.$pathRecord->path;
 
                 if(file_exists($fullPath)) {
                     continue;
@@ -54,6 +56,7 @@ class DummyPathsCommand extends Command {
                 if($pathRecord->directory) {
                     try {
                         mkdir($fullPath, 0777, true);
+			//printf("%s\n", $fullPath);
                     }
                     catch(Exception $e) {
                         var_dump($fullPath);
@@ -92,7 +95,7 @@ class DummyPathsCommand extends Command {
 	protected function getOptions()
 	{
 		return array(
-			//array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
+			array('path', null, InputOption::VALUE_REQUIRED, 'Target path', null),
 		);
 	}
 

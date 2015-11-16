@@ -18,7 +18,7 @@ Artisan::add(new UpdateSizeCommand());
 Artisan::add(new GenerateSitemapCommand());
 Artisan::add(new MergeAutoUploadsCommand());
 
-if(Config::get('app.debug')) {
+if(true || Config::get('app.debug')) {
     Artisan::add(new DummyPathsCommand());
 }
 

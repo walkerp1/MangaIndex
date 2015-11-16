@@ -9,7 +9,7 @@ class Path extends SplFileInfo {
     protected static $safeFileExtensions = array(
         'zip', 'rar', 'cbz', '7z', 'txt', 'jpg', 'png',
         'bmp', 'cbr', 'md5', 'pdf', 'epub', 'jpeg', 'docx',
-        'doc', 'odf', 'mobi'
+        'doc', 'odf', 'mobi', 'xz',
     );
 
     public static function fromRelative($relPath) {
