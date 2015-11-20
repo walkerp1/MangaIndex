@@ -89,7 +89,7 @@
             <div class="message message-success">{{{ Session::get('success') }}}</div>
         @endif
 
-        <div class="message message-info">I have set up a pomf.se clone @ <a href="https://madokami.com/" target="_blank">https://madokami.com/</a> - feel free to use.</div>
+        <div class="message message-info">Our goddess is back again, after some unplanned downtime. Read <a href=/static/state-of-the-madokami.txt>State of the Madokami</a> for more details, especially if you're currently or planning on doing any large-scale automated scraping of the site.</div>
 
         @section('main')
             <div id="loli-madokai-container">
@@ -100,7 +100,7 @@
         <footer>
             {{{ $statTotalSize }}} used<br/>
             #madokami @ rizon<br/>
-{{--            <a href="https://fufufu.moe/a/?cache" target="_blank">fufufu.moe</a> --}}
+            <a href="https://fufufu.moe/a/?cache" target="_blank">fufufu.moe</a>
         </footer>
     @show
 
