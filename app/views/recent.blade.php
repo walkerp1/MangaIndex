@@ -25,7 +25,7 @@
                         <?php $parent = $bucket['parent']; ?>
                         <td>
                             @if(count($bucket['paths']) === 1)
-                                <a href="{{{ $path->getUrl() }}}" rel="nofollow">{{{ $path->getRelativeTop(2) }}}</a>
+                                <a href="{{{ $parent->getUrl() }}}">{{{ $parent->getRelativeTop(2) }}}</a><a href="{{{ $path->getUrl() }}}" rel="nofollow">{{{ $path->getRelativeTop(1) }}}</a>
                             @else
                                 <a href="{{{ $parent->getUrl() }}}">{{{ $path->getRelativeTop(2) }}}</a>
 
