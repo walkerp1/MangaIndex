@@ -20,6 +20,9 @@ class BaseController extends Controller {
 	}
 
     protected function download(Path $path) {
+        // check basic auth headers as well, so if specified,
+        // client doesn't have to go through the login and cookie dance.
+        Auth::onceBasic("username");
         // check we're logged in
         if(!Auth::check()) {
             Session::flash('redirect', URL::current());
