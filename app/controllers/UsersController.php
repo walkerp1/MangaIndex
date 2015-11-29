@@ -78,6 +78,15 @@ class UsersController extends BaseController {
         return $this->download($path);
     }
 
+    public function authcheck() {
+        Auth::onceBasic('username');
+        if (Auth::check()) {
+            return Response::make('', 204);
+        } else {
+            return Response::make('', 401, array('WWW-Authenticate' => 'Basic'));
+        }
+    }
+
     public function login() {
         $redirect = Session::get('redirect');
 

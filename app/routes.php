@@ -24,6 +24,7 @@ Route::post('/reports/dismiss', array('as' => 'reportDismiss', 'before' => array
 
 Route::get('/login', array('as' => 'login', 'uses' => 'UsersController@login'));
 Route::get('/logout', array('as' => 'logout', 'uses' => 'UsersController@logout'));
+Route::get('/authcheck', array('as' => 'authcheck', 'uses' => 'UsersController@authcheck'));
 
 Route::group(array('before' => 'auth'), function() {
     Route::post('/user/notifications/watch', array('uses' => 'UsersController@toggleWatch'));
