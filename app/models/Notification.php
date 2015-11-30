@@ -24,6 +24,10 @@ class Notification extends Eloquent {
         $this->save();
     }
 
+    public function getPath() {
+        return $this->pathRecord->getPath();
+    }
+
     public function getUrl() {
         $path = $this->pathRecord->getPath();
         return URL::route('notificationDownload', array('notification' => $this->id, 'filename' => $path->getBasename()));

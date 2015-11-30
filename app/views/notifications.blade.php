@@ -32,7 +32,7 @@
                             @foreach($notifications as $notify)
                                 <?php $path = $notify->pathRecord->getPath(); ?>
                                 <tr @if($notify->dismissed)class="dismissed"@endif>
-                                    <td><a href="{{{ $notify->getUrl() }}}">{{{ $path->getRelative() }}}</a></td>
+                                    <td><a href="{{{ $notify->getPath()->getParent()->getUrl() }}}">{{{ $notify->getPath()->getRelativeTop(2) }}}</a><a href="{{{ $notify->getUrl() }}}" rel="nofollow">{{{ $notify->getPath()->getRelativeTop(1) }}}</a></td>
                                     <td>{{{ $path->getDisplayTime() }}}</td>
                                     <td>
                                         @if(!$notify->dismissed)
