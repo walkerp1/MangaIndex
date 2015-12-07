@@ -90,7 +90,7 @@
             <div class="message message-success">{{{ Session::get('success') }}}</div>
         @endif
 
-        <div class="message message-info">HTTP2 just kicked in yo. If anything is broken, <a href="mailto:queue@hakase.org">let me know</a>. Site status info available at <a href=/static/state-of-the-madokami.txt>State of the Madokami</a>, until we figure out something fancier.</div>
+        <div class="message message-info">Hey, if you use FTP, please read <a href=/NEW-FTP.txt>NEW-FTP.txt</a>, we're changing some things. More news available at <a href=/static/state-of-the-madokami.txt>State of the Madokami</a>, until we figure out something fancier.</div>
 
         @section('main')
             <div id="loli-madokai-container">
