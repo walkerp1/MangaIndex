@@ -44,7 +44,7 @@ class RecentController extends BaseController {
         $records = PathRecord::whereDirectory(false)
             ->whereRaw('left(path, 5) in ("/Mang", "/Raws")') // TODO: Optimize this
             ->orderBy('modified', 'desc')
-            ->take(1000)
+            ->take(250)
             ->get();
 
         return $records;
