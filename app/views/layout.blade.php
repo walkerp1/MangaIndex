@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="robots" content="noindex">
 
     <meta name="viewport" content="width=device-width" />
     <meta name="mobile-web-app-capable" content="yes">
