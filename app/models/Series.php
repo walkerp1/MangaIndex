@@ -166,7 +166,21 @@ class Series extends Eloquent {
     }
 
     public function getImageUrl() {
-        return URL::to('/images/'.$this->image);
+        if($this->hasImage()) {
+            if(file_exists($this->getImagePath())) {
+                return URL::to('/images/'.$this->image);
+            }
+            else {
+                return 'http://www.mangaupdates.com/image/'.rawurlencode($this->image);
+            }
+        }
+    }
+
+    protected function getImagePath() {
+        if($this->hasImage()) {
+            $imagesDir = Config::get('app.images_path');
+            return $imagesDir.'/'.$this->image;
+        }
     }
 
     public function hasImage() {

@@ -3,9 +3,9 @@
 return array(
 
     'debug' => false,
-    'manga_path' => '/srv/http/manga_madokami_com/data',
+    'manga_path' => '/mango',
     'images_path' => '/srv/http/manga_madokami_com/images',
-    'url' => 'https://manga.madokami.com',
+    'url' => 'http://madokami.hakase.org',
     'require_auth' => true,
 
 );
