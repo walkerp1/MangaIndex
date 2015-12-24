@@ -3,8 +3,12 @@
 class ReaderController extends BaseController {
 
     public function read($relativePath) {
-        $path = Path::fromRelative($relativePath);
+        if(!Auth::check()) {
+            Session::flash('redirect', URL::current());
+            return Redirect::route('login');
+        }
 
+        $path = Path::fromRelative($relativePath);
         if(!$path->exists()) {
             App::abort(404, 'Archive not found');
         }
@@ -36,6 +40,10 @@ class ReaderController extends BaseController {
     }
 
     public function image() {
+        if(!Auth::check()) {
+            Session::flash('redirect', URL::current());
+            return Redirect::route('login');
+        }
         $relativePath = Input::get('path');
         $filePath = Input::get('file');
 
