@@ -1,8 +1,5 @@
-# 80legs
-User-agent: 008
-Disallow: /
-
-User-agent: *
+User-agent: ia_archiver
+User-agent: archive.org_bot
 Disallow: /user/*
 Disallow: /reports
 Disallow: /reader/*
@@ -10,3 +7,6 @@ Disallow: /search
 Disallow: /search/*
 Disallow: /login
 Disallow: /api/muid/*
+
+User-agent: *
+Disallow: /
