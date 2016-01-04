@@ -2,12 +2,12 @@ html {
     font-family: 'Open Sans', 'ＭＳ Ｐゴシック', sans-serif;
     font-size: 16px;
     font-weight: 300;
-    color: #ccf;
+    color: #e3c2b3;
     box-sizing: border-box;
 }
 
 body {
-    background: url(/img/stardust.png);
+    background-color: #171717;
     padding: 20px;
     margin: 0;
 }
@@ -55,11 +55,9 @@ ul {
 .container {
     padding: 30px;
     box-shadow: 0 0 6px -2px rgba(237, 237, 237, 0.2);
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(27, 27, 27, 1.0);
     margin: 0 0 30px;
     position: relative;
-    border-radius: 10px;
-    border-top: 3px solid #ccc;
 }
 
 .index-container {
@@ -177,11 +175,10 @@ a.tag[href]:hover {
     border: 1px solid #404040;
     padding: 6px 6px;
     font: inherit;
-    border-radius: 6px;
+    border-radius: 1px;
     background: #1b1b1b;
     -webkit-transition: border 200ms, background 200ms;  
     transition: border 200ms, background 200ms;
-    border-top: 3px solid #ccc;
 }
 
 .button {
@@ -195,7 +192,6 @@ a.tag[href]:hover {
     color: inherit;
     -webkit-transition: border 200ms, color 200ms, background 200ms;
     transition: border 200ms, color 200ms, background 200ms;
-    border-top: 3px solid #ccc;
 }
 
 .button:hover, .button:active, .button:focus {
@@ -299,9 +295,8 @@ input.file {
 }
 
 .message.message-info {
-    background-color: rgba(255,255,255,0.2);
-    color: #64ACC3;
-    border-radius: 6px;
+    background-color: #f8ffff;
+    color: #276f86;
 }
 
 .manga-info-outer {
@@ -395,7 +390,7 @@ footer {
 }
 
 #loli-madokami {
-    background: url(/img/sad-madokami-in-the-snow.gif) no-repeat center;
+    background: url(/img/loli-madokami.png) no-repeat center;
     background-size: contain;
     position: absolute;  
     top: -162px;
