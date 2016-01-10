@@ -90,7 +90,10 @@
             <div class="message message-success">{{{ Session::get('success') }}}</div>
         @endif
 
-        <div class="message message-info">We're back, almost. If you registered before 2015-11-22, you should be good to go. If not, you'll have to register again, sorry. Your lucky word is '/topic'. Also, series images are missing, we'll get to that soon™. If you're downloading a <i>lot</i>, please mind the 429s, or contact us in the IRC.</div>
+	<div class="message message-info">The FTP credentials have changed,
+check your favorite text file. Also check <a
+href=/Info/state-of-the-madokami.txt>State of The Madokami</a> for more info on
+recent changes.</div>
 
         @section('main')
             <div id="loli-madokai-container">
