@@ -66,7 +66,11 @@
                                     @endif
                                 </td>
                                 <td>
-                                    {{{ $child->size }}}
+                                    @if($child->isDir)
+                                        -
+                                    @else
+                                        {{{ $child->size }}}
+                                    @endif
                                 </td>
                                 <td>
                                     {{{ DisplayTime::format($child->rawTime) }}}
