@@ -8,5 +8,11 @@ Disallow: /search/*
 Disallow: /login
 Disallow: /api/muid/*
 
+# allow, but only so they can pick up
+# the noindex meta tag.
+User-agent: Googlebot
+User-agent: bingbot
+Disallow: /*.txt$
+
 User-agent: *
 Disallow: /
