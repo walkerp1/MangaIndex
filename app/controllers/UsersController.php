@@ -35,7 +35,9 @@ class UsersController extends BaseController {
         );
 
         return Response::make(View::make('opml', $params))->header(
-            'Content-Type', 'text/xml; charset=UTF-8');
+            'Content-Type', 'text/xml; charset=UTF-8')->header(
+            'Content-Disposition', 'attachment;filename=madokami-watched.opml'
+            );
     }
 
     public function dismiss() {

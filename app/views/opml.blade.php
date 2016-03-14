@@ -4,10 +4,10 @@
     <title>Madokami Watched Series Export</title>
   </head>
   <body>
-    <outline text="Watched Series">
+    <outline text="Madokami - Watched Series">
       @foreach($watched as $series)
         @foreach($series->pathRecords as $path)
-           <outline type="rss" xmlUrl="{{{URL::to('/')}}}{{{$path->getPath()->getUrl()}}}?t=rss" />
+             <outline title="{{{$series->name}}}" type="rss" htmlUrl="{{{URL::to('/')}}}{{{$path->getPath()->getUrl()}}}" xmlUrl="{{{URL::to('/')}}}{{{$path->getPath()->getUrl()}}}?t=rss" />
         @endforeach
       @endforeach
     </outline>

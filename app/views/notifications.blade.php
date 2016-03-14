@@ -18,7 +18,8 @@
                     You have no new upload notifications!
                 </p>
             @else
-                <form method="post" action="{{{ URL::route('notificationDismiss') }}}">
+
+    <form method="post" action="{{{ URL::route('notificationDismiss') }}}">
                     {{ Form::token() }}
                     <table>
                         <thead>
@@ -59,14 +60,16 @@
             @endif
         @endif
 
-        <h2>Watched series</h2>
         @if(count($watched) === 0)
             <p>
-                You have no series watched!<br/>
-                <br/>
-                Visit a directory that has a series assigned and click the "Watch series" button.
+                All directories in madokami have RSS (and Atom) feeds, accessible
+                through the "Subscribe" link in your web browser
+                (Firefox hides it in Bookmarks). Please use that and your favorite
+                RSS feed reader or automated downloader for watching series.
             </p>
         @else
+            <h2>Watched series</h2>
+            <p><a href="/user/watched.opml">Export watched series as OPML (to import into a feed reader)</a></p>
             <form method="post" action="/user/notifications/watch">
                 {{ Form::token() }}
                 
