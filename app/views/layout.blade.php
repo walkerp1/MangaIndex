@@ -26,6 +26,8 @@
 
     <link rel="icon" type="image/png" href="{{{ URL::to('img/icon.png') }}}">
 
+    @yield('headerstuff')
+
     {{ Minify::stylesheet(array($stylesheets, $additionalStylesheets)) }}
 
     <script type="application/ld+json">

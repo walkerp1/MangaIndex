@@ -1,5 +1,10 @@
 @extends('layout')
 
+@section('headerstuff')
+<link href="?t=rss" type="application/rss+xml" rel="alternate" title="rss" />
+<link href="?t=atom" type="application/atom+xml" rel="alternate" title="atom" />
+@stop
+
 @section('pageHeading')
     <h1 itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
         @foreach($breadcrumbs as $index => $crumb)
@@ -66,7 +71,11 @@
                                     @endif
                                 </td>
                                 <td>
-                                    {{{ $child->size }}}
+                                    @if($child->isDir)
+                                        -
+                                    @else
+                                        {{{ $child->size }}}
+                                    @endif
                                 </td>
                                 <td>
                                     {{{ DisplayTime::format($child->rawTime) }}}

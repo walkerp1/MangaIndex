@@ -9,7 +9,7 @@ class DisplayTime {
         $diff = $created->diff($now);
         
         if($diff->d > 7 || $diff->m > 0) {
-            return date('d/m/Y H:i', $time);
+            return date('Y-m-d H:i', $time);
         }
         else {
             $steps = array(

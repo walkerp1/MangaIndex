@@ -14,8 +14,8 @@ return array(
 	*/
 
 	'debug' => true,
-    'manga_path' => 'C:/Manga',
-    'images_path' => 'C:/temp',
-    'url' => 'http://mangaindexnew.localhost',
+    'manga_path' => '/tmp/mango',
+    'images_path' => '/tmp/img',
+    'url' => 'http://localhost',
 
 );
