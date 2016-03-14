@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title>{{{ $path->getUrl() }}} - Madokami</title>
+  <title>{{{ $pageTitle }}}</title>
   <link rel="self" href="{{{URL::to('/')}}}{{{ $path->getUrl() }}}?t=atom" />
   <id>{{{URL::to('/')}}}{{{ $path->getUrl() }}}</id>
   <updated>{{{ (new DateTime(date('Y-m-d H:i:s', $updated)))->format(DateTime::ISO8601)}}}</updated>
