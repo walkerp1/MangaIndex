@@ -90,10 +90,7 @@
             <div class="message message-success">{{{ Session::get('success') }}}</div>
         @endif
 
-	<div class="message message-info">The FTP credentials have changed,
-check your favorite text file. Also check <a
-href=/Info/state-of-the-madokami.txt>State of The Madokami</a> for more info on
-recent changes.</div>
+	<div class="message message-info">We now return to your regular scheduled Madokami. More details forthcoming.</div>
 
         @section('main')
             <div id="loli-madokai-container">
