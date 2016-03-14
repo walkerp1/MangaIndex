@@ -74,9 +74,6 @@ class IndexController extends BaseController {
             }
         }
         $params['updated'] = $updated;
-        Log::info('format is ' . implode(Request::getAcceptableContentTypes()));
-        Log::info('format inferred is ' . Request::format());
-        Log::info('input.get ' . Input::has('atom'));
         if (Request::format() == 'atom' || Input::get('t') == 'atom') {
             return Response::make(View::make('index-atom', $params))->header(
               'Content-Type', 'application/atom+xml; charset=UTF-8');
