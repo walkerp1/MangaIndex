@@ -25,6 +25,19 @@ class UsersController extends BaseController {
         return View::make('notifications', $params);
     }
 
+    public function opml() {
+        $user = Auth::user();
+
+        $watched = $user->series()->with('pathRecords')->get();
+
+        $params = array(
+            'watched' => $watched
+        );
+
+        return Response::make(View::make('opml', $params))->header(
+            'Content-Type', 'text/xml; charset=UTF-8');
+    }
+
     public function dismiss() {
         $user = Auth::user();
 
