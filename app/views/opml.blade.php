@@ -7,7 +7,7 @@
     <outline text="Madokami - Watched Series">
       @foreach($watched as $series)
         @foreach($series->pathRecords as $path)
-             <outline title="{{{$series->name}}}" type="rss" htmlUrl="{{{URL::to('/')}}}{{{$path->getPath()->getUrl()}}}" xmlUrl="{{{URL::to('/')}}}{{{$path->getPath()->getUrl()}}}?t=rss" />
+             <outline title="{{htmlspecialchars($series->name, ENT_QUOTES)}}" type="rss" htmlUrl="{{htmlspecialchars(URL::to('/'), ENT_QUOTES)}}{{htmlspecialchars($path->getPath()->getUrl(), ENT_QUOTES)}}" xmlUrl="{{htmlspecialchars(URL::to('/'), ENT_QUOTES)}}{{htmlspecialchars($path->getPath()->getUrl(), ENT_QUOTES)}}?t=rss" />
         @endforeach
       @endforeach
     </outline>
