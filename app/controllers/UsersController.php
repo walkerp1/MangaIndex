@@ -26,6 +26,12 @@ class UsersController extends BaseController {
     }
 
     public function opml() {
+        // check we're not already logged in
+        if(!Auth::check()) {
+            // do auth
+            Auth::basic('username');
+        }
+
         $user = Auth::user();
 
         $watched = $user->series()->with('pathRecords')->get();

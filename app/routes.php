@@ -29,10 +29,12 @@ Route::get('/authcheck', array('as' => 'authcheck', 'uses' => 'UsersController@a
 Route::group(array('before' => 'auth'), function() {
     Route::post('/user/notifications/watch', array('uses' => 'UsersController@toggleWatch'));
     Route::get('/user/notifications', array('as' => 'notifications', 'uses' => 'UsersController@notifications'));
-    Route::get('/user/watched.opml', array('as' => 'opml', 'uses' => 'UsersController@opml'));
     Route::post('/user/notifications/dismiss', array('as' => 'notificationDismiss', 'before' => 'csrf', 'uses' => 'UsersController@dismiss'));
     Route::get('/user/notifications/download/{notification}/{filename}', array('as' => 'notificationDownload', 'uses' => 'UsersController@downloadDismiss'));
 });
+
+// XXX has internal auth that supports basic
+Route::get('/user/watched.opml', array('as' => 'opml', 'uses' => 'UsersController@opml'));
 
 Route::get('/api/muid/{muId}', array('uses' => 'ApiController@muid'));
 Route::get('/api/register', array('uses' => 'ApiController@register'));
