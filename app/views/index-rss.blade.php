@@ -2,7 +2,7 @@
 <rss version="2.0">
   <channel>
     <title>{{htmlspecialchars( $pageTitle , ENT_QUOTES)}} - Madokami</title>
-    <link>{{htmlspecialchars(URL::to('/'), ENT_QUOTES)}}{{htmlspecialchars( $path->getUrl() , ENT_QUOTES)}}?t=rss</link>
+    <link>{{htmlspecialchars(URL::to('/'), ENT_QUOTES)}}{{htmlspecialchars( $path->getUrl() , ENT_QUOTES)}}</link>
     <description>{{htmlspecialchars( $path->getUrl() , ENT_QUOTES)}} - Madokami</description>
     <pubDate>{{htmlspecialchars( (new DateTime(date('Y-m-d H:i:s', $updated)))->format(DateTime::RFC822), ENT_QUOTES)}}</pubDate>
 
@@ -12,6 +12,7 @@
       <enclosure url="{{htmlspecialchars(URL::to('/'), ENT_QUOTES)}}{{htmlspecialchars( $child->url , ENT_QUOTES)}}" type="{{htmlspecialchars($child->mime, ENT_QUOTES)}}" length="{{htmlspecialchars($child->rawSize, ENT_QUOTES)}}" />
       <guid>{{htmlspecialchars(URL::to('/'), ENT_QUOTES)}}{{htmlspecialchars( $child->url , ENT_QUOTES)}}?length={{htmlspecialchars( $child->rawSize , ENT_QUOTES)}}&amp;mtime={{htmlspecialchars( $child->rawTime, ENT_QUOTES)}}</guid>
       <pubDate>{{htmlspecialchars( (new DateTime(date('Y-m-d H:i:s', $child->rawTime)))->format(DateTime::RFC822), ENT_QUOTES)}}</pubDate>
+      <description><![CDATA[<a href="{{htmlspecialchars(URL::to('/'), ENT_QUOTES)}}{{htmlspecialchars( $path->getUrl() , ENT_QUOTES)}}">{{htmlspecialchars( $path->getUrl() , ENT_QUOTES)}}</a>/<a href="{{htmlspecialchars(URL::to('/'), ENT_QUOTES)}}{{htmlspecialchars( $child->url , ENT_QUOTES)}}" type="{{htmlspecialchars($child->mime, ENT_QUOTES)}}" length="{{htmlspecialchars($child->rawSize, ENT_QUOTES)}}">{{htmlspecialchars( $child->name , ENT_QUOTES)}}</a>]]></description>
     </item>
     @endif @endforeach
 </channel>

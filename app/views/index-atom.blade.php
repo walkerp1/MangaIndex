@@ -3,6 +3,7 @@
 
   <title>{{htmlspecialchars( $pageTitle , ENT_QUOTES)}}</title>
   <link rel="self" href="{{htmlspecialchars(URL::to('/'), ENT_QUOTES)}}{{htmlspecialchars( $path->getUrl() , ENT_QUOTES)}}?t=atom" />
+  <link href="{{htmlspecialchars(URL::to('/'), ENT_QUOTES)}}{{htmlspecialchars( $path->getUrl() , ENT_QUOTES)}}" />
   <id>{{htmlspecialchars(URL::to('/'), ENT_QUOTES)}}{{htmlspecialchars( $path->getUrl() , ENT_QUOTES)}}</id>
   <updated>{{htmlspecialchars( (new DateTime(date('Y-m-d H:i:s', $updated)))->format(DateTime::ISO8601), ENT_QUOTES)}}</updated>
 
