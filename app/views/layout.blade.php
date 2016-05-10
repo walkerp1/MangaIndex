@@ -92,7 +92,7 @@
             <div class="message message-success">{{{ Session::get('success') }}}</div>
         @endif
 
-	<div class="message message-info">We now return to your regular scheduled Madokami. More details forthcoming.</div>
+	<div class="message message-info">The details forthcometh, please enjoy a new <a href=/Info/state-of-the-madokami.txt>State of the Madokami</a>. PSA: if you upload/reorganize a lot of stuff, please lurk in the IRC so we know who you are. </div>
 
         @section('main')
             <div id="loli-madokai-container">

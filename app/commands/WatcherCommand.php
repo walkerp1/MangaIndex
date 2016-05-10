@@ -99,7 +99,7 @@ class WatcherCommand extends Command {
         $wd = inotify_add_watch($in, $path->getPathname(), $this->computedMask);
         $watches[$wd] = $path;
 
-        printf("\rAdding watches... %d", count($watches));
+        //printf("\rAdding watches... %d", count($watches));
 
         // recurse into this directory's children
         $children = $path->getChildren();
