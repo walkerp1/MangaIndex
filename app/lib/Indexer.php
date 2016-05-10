@@ -4,6 +4,9 @@ class Indexer {
 
     public static function index(Path $path, $levels = null, &$count = 0) {
         printf("Indexing: %s\n", $path->getRelative());
+        if (preg_match("/^\.in\./", $path->getFilename())) {
+            return;
+        }
 
         try {
             $record = $path->loadRecord();

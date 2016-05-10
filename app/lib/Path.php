@@ -86,6 +86,10 @@ class Path extends SplFileInfo {
                 continue;
             }
 
+            if(preg_match("/^\.in\./", $fileName)) {
+                 continue;
+            }
+
             $path = new self($this->getPathname().'/'.$fileName);
             $ret[] = $path;
         }
