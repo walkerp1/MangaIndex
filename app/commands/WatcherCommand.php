@@ -78,8 +78,12 @@ class WatcherCommand extends Command {
 
                     // this may be a new directory, so add a watch to it anyway
                     if($newPath->exists() && $newPath->isDir()) {
-                        $wd = inotify_add_watch($in, $newPath->getPathname(), $this->computedMask);
-                        $watches[$wd] = $newPath;
+                        try {
+                            $wd = inotify_add_watch($in, $newPath->getPathname(), $this->computedMask);
+                            $watches[$wd] = $newPath;
+                        } catch (Exception $e) {
+                            echo 'Caught exception: ',  $e->getMessage(), "\n";
+                        }
                     }
                 }
                 else {
@@ -96,17 +100,21 @@ class WatcherCommand extends Command {
             return;
         }
 
-        $wd = inotify_add_watch($in, $path->getPathname(), $this->computedMask);
-        $watches[$wd] = $path;
+        try {
+            $wd = inotify_add_watch($in, $path->getPathname(), $this->computedMask);
+            $watches[$wd] = $path;
 
-        //printf("\rAdding watches... %d", count($watches));
+            //printf("\rAdding watches... %d", count($watches));
 
-        // recurse into this directory's children
-        $children = $path->getChildren();
-        foreach($children as $child) {
-            if($child->isDir()) {
-                $this->addWatches($in, $child, $watches);
+            // recurse into this directory's children
+            $children = $path->getChildren();
+            foreach($children as $child) {
+                if($child->isDir()) {
+                    $this->addWatches($in, $child, $watches);
+                }
             }
+        } catch (Exception $e) {
+            echo 'Caught exception: ',  $e->getMessage(), "\n";
         }
     }
 
