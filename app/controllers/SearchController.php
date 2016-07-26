@@ -3,6 +3,14 @@
 class SearchController extends BaseController {
 
     public function search($keyword = null) {
+        Auth::basic('username');
+        if(!Auth::check()) {
+            // do auth
+            Auth::basic('username');
+            if(!Auth::check()) {
+                return Response::make(View::make('unauth',array()),401)->header('WWW-Authenticate', 'Basic');
+            }
+        }
         if($keyword) {
             $match = $keyword;
         }
@@ -36,6 +44,14 @@ class SearchController extends BaseController {
 
     // route for e.g /search/genre/drama
     public function searchKeywordType($type = null, $keyword = null) {
+        Auth::basic('username');
+        if(!Auth::check()) {
+            // do auth
+            Auth::basic('username');
+            if(!Auth::check()) {
+                return Response::make(View::make('unauth',array()),401)->header('WWW-Authenticate', 'Basic');
+            }
+        }
         if($type && $keyword) {
             $match = sprintf('"%s:%s"', $type, $keyword);
         }
@@ -47,6 +63,14 @@ class SearchController extends BaseController {
     }
     
     public function suggest() {
+        Auth::basic('username');
+        if(!Auth::check()) {
+            // do auth
+            Auth::basic('username');
+            if(!Auth::check()) {
+                return Response::make(View::make('unauth',array()),401)->header('WWW-Authenticate', 'Basic');
+            }
+        }
         $term = Input::get('term');
         $result = Search::suggest($term);
         return Response::json($result);

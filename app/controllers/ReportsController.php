@@ -3,6 +3,14 @@
 class ReportsController extends BaseController {
 
     public function reports() {
+        Auth::basic('username');
+        if(!Auth::check()) {
+            // do auth
+            Auth::basic('username');
+            if(!Auth::check()) {
+                return Response::make(View::make('unauth',array()),401)->header('WWW-Authenticate', 'Basic');
+            }
+        }
 
         Report::clearCache();
 

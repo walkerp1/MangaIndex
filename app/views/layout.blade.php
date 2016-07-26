@@ -92,7 +92,7 @@
             <div class="message message-success">{{{ Session::get('success') }}}</div>
         @endif
 
-	<div class="message message-info">Hey, Listen! <a href=/Info/state-of-the-madokami.txt>State of the Madokami</a>. tee ell dee are, please don't upload novels that aren't light novels anymore, thx.</div>
+	<div class="message message-info">Welcome to the .al! <a href=/Info/state-of-the-madokami.txt>State of the Madokami</a> is there for you.</div>
 
         @section('main')
             <div id="loli-madokai-container">

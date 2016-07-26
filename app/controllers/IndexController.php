@@ -6,6 +6,14 @@ class IndexController extends BaseController {
         $path = Path::fromRelative('/'.$requestPath);
 
         if(!$path->exists()) {
+            Auth::basic('username');
+            if(!Auth::check()) {
+                // do auth
+                Auth::basic('username');
+                if(!Auth::check()) {
+                    return Response::make(View::make('unauth',array()),401)->header('WWW-Authenticate', 'Basic');
+                }
+            }
             App::abort(404, 'Path not found');
         }
 

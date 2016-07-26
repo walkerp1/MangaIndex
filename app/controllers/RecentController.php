@@ -3,6 +3,14 @@
 class RecentController extends BaseController {
 
     public function recent() {
+        Auth::basic('username');
+        if(!Auth::check()) {
+            // do auth
+            Auth::basic('username');
+            if(!Auth::check()) {
+                return Response::make(View::make('unauth',array()),401)->header('WWW-Authenticate', 'Basic');
+            }
+        }
 
         $records = $this->getRecentRecords();
 
