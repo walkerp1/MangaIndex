@@ -150,7 +150,7 @@
                             </ul>
                         @endif
 
-                        <h4>Scanlated?</h4>
+                        <h4>Completely Scanlated?</h4>
                         <span class="scanstatus">{{{ $path->record->series->scan_status }}}</span>
 
                         @if($user)
