@@ -8,7 +8,7 @@ class DisplayTime {
 
         $diff = $created->diff($now);
         
-        if($diff->d > 7 || $diff->m > 0) {
+        if($diff->d > 7 || $diff->m > 0 || $diff->y > 0) {
             return date('Y-m-d H:i', $time);
         }
         else {

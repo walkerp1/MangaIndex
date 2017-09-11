@@ -5,6 +5,7 @@
     <link>{{htmlspecialchars(URL::to('/'), ENT_QUOTES)}}{{htmlspecialchars( $path->getUrl() , ENT_QUOTES)}}</link>
     <description>{{htmlspecialchars( $path->getUrl() , ENT_QUOTES)}} - Madokami</description>
     <pubDate>{{htmlspecialchars( (new DateTime(date('Y-m-d H:i:s', $updated)))->format(DateTime::RFC822), ENT_QUOTES)}}</pubDate>
+    <ttl>60</ttl>
 
     @foreach($children as $child)<item>
       <title>{{htmlspecialchars( $child->name , ENT_QUOTES)}}</title>

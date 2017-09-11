@@ -84,10 +84,10 @@ class IndexController extends BaseController {
         $params['updated'] = $updated;
         if (Request::format() == 'atom' || Input::get('t') == 'atom') {
             return Response::make(View::make('index-atom', $params))->header(
-              'Content-Type', 'application/atom+xml; charset=UTF-8');
+              'Content-Type', 'application/atom+xml; charset=UTF-8')->setMaxAge(3600)->setPublic();
         } else if (Request::format() == 'rss' || Input::get('t') == 'rss') {
             return Response::make(View::make('index-rss', $params))->header(
-                'Content-Type', 'application/rss+xml; charset=UTF-8');
+                'Content-Type', 'application/rss+xml; charset=UTF-8')->setMaxAge(3600)->setPublic();
         } else {
             Auth::basic('username');
             if(!Auth::check()) {

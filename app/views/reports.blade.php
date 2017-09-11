@@ -10,8 +10,7 @@
 @section('main')
     @parent
 
-    <div class="message message-info">FTP access is open (see <a href="/READ.txt" rel="nofollow">READ.txt</a>).
-        Please contribute by fixing issues rather than just reporting them.</div>
+    <div class="message message-info">If you see something you don't like, complain about it on IRC. This shitty report system is mostly ignored. We'll remove it at some point.</div>
 
     <div class="container">
         @if(count($reports) > 0)
