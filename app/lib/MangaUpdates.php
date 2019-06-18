@@ -15,7 +15,7 @@ class MangaUpdates {
         }
 
         // check page is valid
-        if($doc->find('#main_content .series_content_table')->length() === 0) {
+        if($doc->find('#main_content .releasestitle')->length() === 0) {
             return false;
         }
 
