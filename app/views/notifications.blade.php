@@ -31,7 +31,16 @@
                         </thead>
                         <tbody>
                             @foreach($notifications as $notify)
-                                <?php $path = $notify->pathRecord->getPath(); ?>
+                                <?php
+					$path = $notify->pathRecord->getPath();
+
+					$exists = file_exists($path);
+
+					if (!$exists) {
+						$notifyId = $notify->dismiss();
+					}
+				?>
+				@if($exists)
                                 <tr @if($notify->dismissed)class="dismissed"@endif>
                                     <td>@if(!is_null($notify->getPath()->getParent()))<a href="{{{ $notify->getPath()->getParent()->getUrl() }}}">{{{ $notify->getPath()->getParent()->getRelativeTop(1) }}}</a>@endif<a href="{{{ $notify->getUrl() }}}" rel="nofollow">{{{ $notify->getPath()->getRelativeTop(1) }}}</a></td>
                                     <td>{{{ $path->getDisplayTime() }}}</td>
@@ -41,6 +50,7 @@
                                         @endif
                                     </td>
                                 </tr>
+                                @endif
                             @endforeach
                         </tbody>
                         @if($notifyCount > 0)

@@ -8,7 +8,7 @@
         "laravel/framework": "4.2.*",
         "coderockr/php-query": "dev-master",
         "barryvdh/laravel-debugbar": "1.7.*",
-        "foolz/sphinxql-query-builder": "0.9.*",
+        "foolz/sphinxql-query-builder": "1.2.*",
         "ceesvanegmond/minify": "2.0.*",
         "barryvdh/laravel-ide-helper": "~1.11"
     },

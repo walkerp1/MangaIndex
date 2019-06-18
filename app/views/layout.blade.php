@@ -92,8 +92,6 @@
             <div class="message message-success">{{{ Session::get('success') }}}</div>
         @endif
 
-	<div class="message message-info">Madokami is now owned and led by <b><i>THE CARTEL™</i></b>, the creators of all those animu subs you know and love on crunchyroll. Please rate and subscribe at <a href=/Info/state-of-the-madokami.txt>State of the Madokami</a>.</div>
-
         @section('main')
             <div id="loli-madokai-container">
                 <div id="loli-madokami"></div>
@@ -103,7 +101,7 @@
         <footer>
             {{{ $statTotalSize }}} used<br/>
             #madokami @ rizon<br/>
-            <a href="https://fufufu.moe/a/" target="_blank">fufufu.moe</a>
+            <a href="https://fufufu.moe/a/" target="_blank"><img title=fufufu.moe src=/img/fu3.png></a>
         </footer>
     @show
 

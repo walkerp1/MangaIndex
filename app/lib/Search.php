@@ -32,7 +32,25 @@ class Search {
         if(count($ids) > 0) {
             $records = PathRecord::whereIn('id', $ids)->get();
 
-            return $records;
+            // This is a bodge to fix a bug.
+            $unfuckedRecords = array();
+
+            foreach($records as $record) {
+                $recordOK = true;
+
+                $path = $record->path;
+                $explodedPath = explode('/', $path);
+
+                foreach($explodedPath as $pathPart) {
+                    if ($pathPart == '..') $recordOK = false;
+                }
+
+                if ($recordOK) array_push($unfuckedRecords, $record);
+            }
+
+            $count = count($unfuckedRecords);
+
+            return $unfuckedRecords;
         }
         else {
             return array();

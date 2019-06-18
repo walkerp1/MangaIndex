@@ -13,7 +13,7 @@ class Path extends SplFileInfo {
     );
 
     public static function fromRelative($relPath) {
-        $path = realpath(Config::get('app.manga_path').$relPath);
+        $path = Config::get('app.manga_path').$relPath;
         return new Path($path);
     }
 
@@ -70,7 +70,7 @@ class Path extends SplFileInfo {
 
         return $this->record;
     }
-    
+
     public function getParent() {
         if(!$this->isRoot()) {
             return new Path($this->getPath());
@@ -87,7 +87,7 @@ class Path extends SplFileInfo {
             }
 
             if(preg_match("/^\.in\./", $fileName)) {
-                 continue;
+                continue;
             }
 
             $path = new self($this->getPathname().'/'.$fileName);
@@ -104,7 +104,7 @@ class Path extends SplFileInfo {
     public function exists() {
         return file_exists($this->getPathname());
     }
-    
+
     public function getDisplayName() {
         if($this->isRoot()) {
             return '/';
