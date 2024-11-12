@@ -2,11 +2,10 @@
 
 class MangaUpdates {
 
-    const BASE_URL = 'https://www.mangaupdates.com/series.html?';
     const USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36';
     
     public static function getManga($muId) {
-        $url = self::BASE_URL.http_build_query(array('id' => $muId));
+        $url = "https://www.mangaupdates.com/series/{$muId}";
         $html = self::getPage($url);
         $doc = phpQuery::newDocumentHTML($html);
 
@@ -15,24 +14,24 @@ class MangaUpdates {
         }
 
         // check page is valid
-        if($doc->find('#main_content .releasestitle')->length() === 0) {
+        if($doc->find('#mu-main .releasestitle')->length() === 0) {
             return false;
         }
 
         $ret = new stdClass();
 
-        $ret->name = $doc->find('.releasestitle')->text();
+        $ret->name = $doc->find('#mu-main .releasestitle')->text();
 
-        $imgUrl = $doc->find('.sContent img')->attr('src');
+        $imgUrl = $doc->find('img[alt="Series Image"]', 0)->src;
         $image = self::saveImage($imgUrl);
         if($image) {
             $ret->image = $image;
         }
 
-        $catHeaders = $doc->find('.sCat');
+        $catHeaders = $doc->find('[class^="info-box_sCat"]');
         foreach($catHeaders as $i => $e) {
             $cat = $catHeaders->eq($i)->find('b')->text();
-            $content = $catHeaders->eq($i)->next('.sContent');
+            $content = $catHeaders->eq($i)->next();
 
             if($cat === 'Description') {
                 $ret->description = trim($content->text());
@@ -52,16 +51,17 @@ class MangaUpdates {
                 $ret->categories = $categories;
             }
             elseif($cat === 'Author(s)') {
-                $authors = self::getManyContent($content, 'a[href*="authors"]');
+                $authors = self::getManyContent($content, 'a[href*="author/"]');
                 $ret->authors = $authors;
             }
             elseif($cat === 'Artist(s)') {
-                $artists = self::getManyContent($content, 'a[href*="authors"]');
+                $artists = self::getManyContent($content, 'a[href*="author/"]');
                 $ret->artists = $artists;
             }
             elseif($cat === 'Year') {
                 $ret->year = trim($content->text());
             }
+            // todo - redo the <br> handling to something else
             elseif($cat === 'Associated Names') {
                 $titles = explode('<br>', utf8_encode($content->html()));
 
@@ -79,6 +79,7 @@ class MangaUpdates {
 
                 $ret->altTitles = $titles;
             }
+            // todo - redo the regex and the <br> handling
             elseif($cat === 'Related Series') {
                 $html = $content->html();
                 $lines = explode('<br>', $html);
@@ -92,6 +93,7 @@ class MangaUpdates {
                             $type = null;
 
                             // the relation type text is a standalone text node
+                            // todo - ensure this makes sense in the revised DOM
                             $next = $node->nextSibling;
                             if($next instanceof DOMText) {
                                 $type = trim($next->wholeText, ' ()');
